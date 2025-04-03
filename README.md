@@ -39,3 +39,38 @@ Se sabe que :
 ### DP
 
 
+En este usaremos un enfoque botton up, definiendo lo siguiente
+
+- n monedas seran X1, X2 ... Xn
+- cantidad a devolver c
+- cambio(n,c) minimas monedas para devolver c usando X1, .....Xn
+- Si Xn > c descartamos usar Xn
+- cambio  = cambio (n-1,c)
+- Si Xn< c podemos usar o no Xn
+- Si usamos Xn cambio (n, c-Xn)+1
+- Si no lo usamos cambio (n-1,c)
+- Escogemos la minima cantidad
+
+Ahora usaremos una tabla de tipo t[i, j] el numero de monedas es el valor de Xi para devolver la cantidad j de esas monedas.
+
+- j = cambio a devolver
+- i = tipo de monedas
+- i,j = cantidad de monedas de cada valor
+
+#### Fuentes:
+
+- López, F. (2021). Programación Dinámica: Devolución de Cambio de Monedas. Obtenido de Youtube: https://www.youtube.com/watch?v=Sf4OKx1Wz9w
+
+
+## Analisis Teorico
+
+### DAC
+
+### DP
+
+
+## Analisis Empirico
+
+### DAC
+
+### DP
