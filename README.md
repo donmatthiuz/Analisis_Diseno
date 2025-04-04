@@ -291,9 +291,9 @@ Pero porque no se supone que deberia ser $O(n x W)$ o  $O(n x L)$ bueno pues suc
 
 Esto quiere decir que nunca va a cambiar, y como es constante tendriamos $O(m)$ lo que da como resultado una complejidad lineal. 
 
-Dando asi que conincide con la regresion vista en nuestra grafica. 
+Dando asi que coincide con la regresion vista en nuestra grafica. 
 
 
-## Conlcusiones
+## Conclusiones
 
 Gracias a los resultados obtenidos, se pudo determinar que para resolver el Coin Change Problem, una estretegia de programación dinámica es más útil pues su complejidad temporal es significativamente más baja que la solución con una estretegia de Divide And Conquer, esto puede deberse a la memoización que se utiliza en la programación dinámica pues esto ayuda a que el algoritmo no realice cálculos redundantes. 
