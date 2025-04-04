@@ -1,5 +1,7 @@
 # Proyecto 1 Analisis y Diseño de Algoritmos
 
+[Link al Repositorio](https://github.com/donmatthiuz/Analisis_Diseno)
+
 ## Integrantes
 
 - Pedro Pablo Guzman
@@ -269,16 +271,21 @@ Podemos ver en el siguiente grafico el resultado de compilar 30 diferentes tipos
 - Entradas:
 De 0 a 65
 
-![alt text](image-4.png)
+![alt text](image-6.png)
+
+De 0 a 300
+
+![alt text](image-5.png)
 
 #### Analisis
 
-Podemos ver que el R^2 de la regresion es del 0.7043 casi 1 esto quiere decir que es bastante bueno , teniendo una ecuacion lineal siendo esta
+Podemos ver que el R^2 de la regresion es del 0.8675 casi 1 esto quiere decir que es bastante bueno , teniendo una ecuacion lineal siendo esta
 
 $$
 2 \times 10^{-6} x + 3 \times 10^{-5}
 $$
 
+Se uso de 0 a 300 ya que una regresion es mas evidente aqui
 
 Lo que nos indica que, en notación Big O, su complejidad temporal es **lineal**, es decir:
 
