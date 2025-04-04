@@ -69,8 +69,7 @@ def show_result(resultado,monedas):
 
 def analisis_empirico():
     monedas = [1, 5, 10, 12, 25, 50]
-    cambios = [10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100, 
-               110, 115, 120, 125, 130, 135, 140, 145, 150, 155, 160]
+    cambios = list(range(10, 301, 5))
 
     tiempos = []  
     resultados = [] 

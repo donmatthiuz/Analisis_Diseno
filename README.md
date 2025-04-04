@@ -78,3 +78,22 @@ Ahora usaremos una tabla de tipo t[i, j] el numero de monedas es el valor de Xi 
 
 Podemos ver en el siguiente grafico el resultado de compilar 30 diferentes tipos de cambios para los tipos de monedas {1,5,10,12,25,50}
 
+![alt text](image.png)
+
+#### Analisis
+
+Podemos ver que el R^2 de la regresion es del 0.8675 casi 1 esto quiere decir que es bastante bueno , teniendo una ecuacion lineal siendo esta
+
+$$
+2 \times 10^{-6} x + 3 \times 10^{-5}
+$$
+
+
+Lo que nos indica que, en notación Big O, su complejidad temporal es **lineal**, es decir:
+
+$$
+O(n)
+$$
+
+
+Esto coincide con el analisis previo realizado.
