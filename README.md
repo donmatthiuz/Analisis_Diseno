@@ -214,21 +214,27 @@ Fin Para
 ```
 
 Por ello se hace el siguiente analisis asintotico
+
+
 $$
-T(n) = \sum_{i=0}^{n} \sum_{j=1}^{m} 13O(1) + C
+T(n) = \sum_{i=0}^{n} \sum_{j=1}^{m} 13 T(1) + C
 $$
 
 
 
 Si lo desglosamos es 
+
+
 $$
 T(n) = 13\sum_{i=0}^{n} \sum_{j=1}^{m}O(1) + C
 $$
 
 
+
 $$
 T(n) = \sum_{i=0}^{n}m + C
 $$
+
 
 $$
 T(n) = nm
