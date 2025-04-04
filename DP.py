@@ -1,13 +1,12 @@
 import math as mt
 
-
 monedas = []
 tabla = []
+usadas = []
 INFINITO = mt.inf
 num = 0
 columnas = []
 filas = []
-
 
 def print_table():
     global num, monedas, columnas, filas, tabla
@@ -17,9 +16,8 @@ def print_table():
         valores = ["∞" if tabla[i][j] == INFINITO else str(tabla[i][j]) for j in range(num + 1)]
         print(fila + "\t" + "\t".join(valores))
 
-
 def build_table():
-    global num, monedas, columnas, filas, tabla
+    global num, monedas, columnas, filas, tabla, usadas
 
     num = int(input("Ingresa un número: "))
     monedas = list(map(int, input("Ingresa las denominaciones de monedas separadas por comas: ").split(",")))
@@ -27,45 +25,53 @@ def build_table():
     columnas = [i for i in range(num + 1)]
     filas = ["Moneda " + str(m) for m in monedas]
 
-
     tabla = [[INFINITO] * (num + 1) for _ in range(len(monedas))]
-    
+    usadas = [[False] * (num + 1) for _ in range(len(monedas))]
+
     for i in range(len(monedas)):
         tabla[i][0] = 0
 
 def solution():
-    global num, monedas, tabla
+    global num, monedas, tabla, usadas
     for i in range(len(monedas)):
         for j in range(1, num + 1):
             xi = monedas[i]
 
             if xi > j:
-                elegido = INFINITO
                 if i > 0:
-                    elegido = tabla[i-1][j]
-                
-                tabla[i][j] = elegido
+                    tabla[i][j] = tabla[i - 1][j]
             else:
-                elegido_actual = INFINITO
-                elegido_antes = INFINITO
-                devolver = INFINITO
+                sin_usar = tabla[i - 1][j] if i > 0 else INFINITO
+                con_usar = tabla[i][j - xi] + 1 if tabla[i][j - xi] != INFINITO else INFINITO
 
-                if i>0:
-                    elegido_antes = tabla[i-1][j]
+                if con_usar < sin_usar:
+                    tabla[i][j] = con_usar
+                    usadas[i][j] = True
+                else:
+                    tabla[i][j] = sin_usar
 
-                if tabla[i][j - xi] != INFINITO:
-                    elegido_actual = tabla[i][j - xi] + 1
+def reconstruir_solucion():
+    global num, monedas, tabla, usadas
 
-                moneda_1 = elegido_antes
-                moneda_2 = elegido_actual
+    resultado = [0] * len(monedas)
+    i = len(monedas) - 1
+    j = num
 
-                if moneda_1 > moneda_2:
-                    devolver = moneda_2
-                elif moneda_2 > moneda_1:
-                    devolver = moneda_1
-                tabla[i][j] = devolver
+    while j > 0 and i >= 0:
+        if usadas[i][j]:
+            resultado[i] += 1
+            j -= monedas[i]
+        else:
+            i -= 1
+
+    return resultado
 
 if __name__ == "__main__":
     build_table()
     solution()
     print_table()
+
+    resultado = reconstruir_solucion()
+    print("\nDistribución de monedas utilizadas:")
+    for i, cantidad in enumerate(resultado):
+        print(f"Moneda {monedas[i]}: {cantidad}")
