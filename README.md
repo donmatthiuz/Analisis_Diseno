@@ -89,6 +89,19 @@ En cada nodo dividermos el problema $$|coins|$$ veces y el peor caso lo obtenemo
 
 ### DAC
 
+Se usará este conjunto de monedas para el análisis: {1,5,10,12,25,50} y valores desde el 5 al 65 para las pruebas. 
+En el análisis teorico se determinó que el tiempo de ejecución de este algoritmo era de $$O(|\text{coins}|^S)$$, donde $$|coins|$$ es la cardinalidad del conjunto de monedas y $$S$$ es el valor inicial de la moneda, por esa razó´n en el script de python se utilizaron varias librerías para realizar una regresión lineal con los datos obtenidos. Los resultados fueron los siguientes:
+
+
+![alt text](coin_change_dac_regressions.png)
+
+Se puede observar que el modelo se adapta bien a un modelo exponecial, incluso el valor del coeficiente R^2 fue de 0.98. Por esa razón se puede confirmar que la complejidad temporal de un algoritmo que usa una estregia DAC para la solución del problema es exponencial. 
+
+$$O(|\text{coins}|^S)$$
+
+Donde $$|coins|$$ es el número de monedas en el conjunto de monedas y $$S$$ es el valor inicial del problema 
+
+
 ### DP
 Podemos ver en el siguiente grafico el resultado de compilar 30 diferentes tipos de cambios para los tipos de monedas {1,5,10,12,25,50}
 
@@ -117,3 +130,7 @@ $$
 
 
 Esto coincide con el analisis previo realizado sobre el mismo algoritmo
+
+## Conlcusiones
+
+Gracias a los resultados obtenidos, se pudo determinar que para resolver el Coin Change Problem, una estretegia de programación dinámica es más útil pues su complejidad temporal es significativamente más baja que la solución con una estretegia de Divide And Conquer, esto puede deberse a la memoización que se utiliza en la programación dinámica pues esto ayuda a que el algoritmo no realice cálculos redundantes. 
