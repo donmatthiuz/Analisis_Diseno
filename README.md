@@ -71,6 +71,7 @@ Ahora usaremos una tabla de tipo t[i, j] el numero de monedas es el valor de Xi 
 #### Fuentes:
 
 - López, F. (2021). Programación Dinámica: Devolución de Cambio de Monedas. Obtenido de Youtube: https://www.youtube.com/watch?v=Sf4OKx1Wz9w
+- UMA. (s.f.). PROGRAMACIÓN DINÁMICA. En UMA, TECNICAS DE DISEÑO DE ALGORITMOS (págs. 193-199).
 
 
 ## Analisis Teorico
@@ -88,10 +89,158 @@ Esta sería la representación de la división del problema usando un árbol de 
 
 ![alt text](Arbol_recursion.png)
 
-En cada nodo dividermos el problema $$|coins|$$ veces y el peor caso lo obtenemos cuando la moneda de valor 1 está en el conjunto de monedas, pues por ejmplo, si tenemos un valor inciial de 50, para la moneda 1 haremos un subproblema del valor S-1 en cada nivel del árbol hasta que lleguemos a 0, esto hace que tengamos S niveles en total. Para cada nivel el número de nodos crecerá exponencialmente pues cada nodo lo dividiremos en $$|coins|$$ subproblemas, en cada nodo se ejecuta una operación de tiempo constante, entonces el tiempo total de ejecución en el peor de los casos será de $$O(|\text{coins}|^S)$$. 
+En cada nodo dividermos el problema $$|coins|$$ veces y el peor caso lo obtenemos cuando la moneda de valor 1 está en el conjunto de monedas, pues por ejmplo, si tenemos un valor inciial de 50, para la moneda 1 haremos un subproblema del valor S-1 en cada nivel del árbol hasta que lleguemos a 0, esto hace que tengamos S niveles en total. Para cada nivel el número de nodos crecerá exponencialmente pues cada nodo lo dividiremos en $$|coins|$$ subproblemas, en cada nodo se ejecuta una operación de tiempo constante, entonces el tiempo total de ejecución en el peor de los casos será de $O(|\text{coins}|^S)$. 
 
 
 ### DP
+
+**Analisis de Funcion de Recurrencia**
+Sea n el número de tipos de monedas distintos, L la cantidad a conseguir y T[1..n]
+un vector con el valor de cada tipo de moneda del sistema. Supondremos que
+disponemos de una cantidad inagotable de monedas de cada tipo.
+
+
+LLamaremos C(i,j) al número mínimo de monedas para
+obtener la cantidad j restringiéndose a los tipos T[1], T[2], ..., T[i].
+
+Si no se puede
+conseguir dicha cantidad entonces C(i,j) = ∞ o no hay manera de suplir la cantidad , esto sucede solo en 0. 
+
+En cada paso tenemos 2 opciones
+
+- No incluir ninguna moneda del tipo T(i), osea $C(i,j) = C(i–1,j).$ osea que usaremos la solucion anterior.
+
+- Incluirla, esto quiere decir que el número de
+monedas global coincide con el número óptimo de monedas para una cantidad
+$(j – T(i))$ más esta moneda $T(i)$ osea que tenemos la solucion anterior mas de la actual. 
+
+Con ello la relacion de recurrencia es la siguiente:
+
+$$
+C(i, j) =
+\begin{cases}
+\infty, & \text{si } i = 1 \text{ y } 1 \leq j < T(i) \\\\
+0, & \text{si } j = 0 \\\\
+1 + C(i, j - T(i)), & \text{si } i = 1 \text{ y } j \geq T(i) \\\\
+C(i-1, j), & \text{si } i > 1 \text{ y } j < T(i) \\\\
+\min\left(C(i-1, j), 1 + C(i, j - T(i))\right), & \text{si } i > 1 \text{ y } j \geq T(i)
+\end{cases}
+$$
+
+
+**Calcular Complejidad**
+
+Para esto vamos a usar la expansion de la recursion especificamente de $C(i,j)=min(C(i−1,j),1+C(i,j−T(i)))$
+
+El segundo término sugiere que podemos restar repetidamente 
+𝑇(𝑖) de  𝑗 es decir:
+
+$$C(i,j)=1+C(i,j−T(i))$$
+
+$$C(i,j)=2+C(i,j−2T(i))$$
+
+$$C(i,j)=3+C(i,j−3T(i))$$
+
+
+Asi hasta encontrar
+
+$$C(i,j)=k+C(i,j−kT(i))$$
+
+
+La dentemos hasta que j alncance el kT(i)<= 0, lo que significa que k es el numero de veces que podemos restar T(i) osea que k es:
+
+$$
+k = \frac{j}{T(i)}
+$$
+
+
+En el peor caso nuestro T(i) sera 1, esto quiere decir que se restara 1 en cada paso dado k = j osea
+
+$$
+O(j)
+$$
+
+Pero esto es sobre j, si iteramos sobre i entonces tendriamos que en terminos de i ada uno de los 
+𝑛
+n niveles puede llegar a costar hasta 
+$𝑂(𝑗)$ en el peor caso.
+
+Osea
+
+$$
+O(ij)
+$$
+
+o
+
+$$
+O(nW)
+$$
+
+
+**Analisis del Algoritmo**
+
+```pseudocodigo
+Para i desde 0 hasta longitud(monedas):                   # n
+    Para j desde 1 hasta num hacer:                         # desde 0 hasta n-1
+        Si xi > j entonces                                  # T(1) + C - comparación simple
+            Si i > 0 entonces                               # T(1) + C - comparación simple
+                tabla[i][j] ← tabla[i - 1][j]               # T(1)  + C- asignación simple
+            Fin Si
+        Sino:                                               # T(1) + C - parte del condicional
+            Si i > 0 entonces                               # T(1) + C - comparación simple
+                sin_usar ← tabla[i - 1][j]                  # T(1) + C - asignación simple
+            Sino
+                sin_usar ← INFINITO                         # T(1) + C - asignación simple
+            Fin Si
+            
+            Si tabla[i][j - xi] ≠ INFINITO entonces         # T(1) + C - comparación simple
+                con_usar ← tabla[i][j - xi] + 1             # T(1) + C - asignación y suma
+            Sino
+                con_usar ← INFINITO                         # T(1) + C - asignación simple
+            Fin Si
+            
+            Si con_usar < sin_usar entonces                 # T(1) + C - comparación simple
+                tabla[i][j] ← con_usar                      # T(1) + C - asignación simple
+                usadas[i][j] ← VERDADERO                    # T(1) + C - asignación simple
+            Sino
+                tabla[i][j] ← sin_usar                      # T(1) + C - asignación simple
+            Fin Si
+        Fin Si
+  Fin Para                                                
+Fin Para
+```
+
+Por ello se hace el siguiente analisis asintotico
+$$
+T(n) = \sum_{i=0}^{n} \sum_{j=1}^{m} 13O(1) + C
+$$
+
+
+
+Si lo desglosamos es 
+$$
+T(n) = 13\sum_{i=0}^{n} \sum_{j=1}^{m}O(1) + C
+$$
+
+
+$$
+T(n) = \sum_{i=0}^{n}m + C
+$$
+
+$$
+T(n) = nm
+$$
+
+En pocas palabras seria la complejidad para nuestro algoritmo de 
+
+$$
+O(nxm)
+$$
+
+Donde n es la cantidad del tipo de monedas y m es la cantidad a encontrar cambio
+
+
 
 
 ## Analisis Empirico
@@ -108,7 +257,7 @@ Se puede observar que el modelo se adapta bien a un modelo exponecial, incluso e
 
 $$O(|\text{coins}|^S)$$
 
-Donde $$|coins|$$ es el número de monedas en el conjunto de monedas y $$S$$ es el valor inicial del problema 
+Donde $|coins|$ es el número de monedas en el conjunto de monedas y $S$ es el valor inicial del problema 
 
 
 ### DP
@@ -118,27 +267,32 @@ Podemos ver en el siguiente grafico el resultado de compilar 30 diferentes tipos
 {1,5,10,12,25,50}
 
 - Entradas:
-De 0 a 300 de 5 en 5
+De 0 a 65
 
-![alt text](image-1.png)
+![alt text](image-4.png)
 
 #### Analisis
 
-Podemos ver que el R^2 de la regresion es del 0.8675 casi 1 esto quiere decir que es bastante bueno , teniendo una ecuacion lineal siendo esta
+Podemos ver que el R^2 de la regresion es del 0.7043 casi 1 esto quiere decir que es bastante bueno , teniendo una ecuacion lineal siendo esta
 
 $$
 2 \times 10^{-6} x + 3 \times 10^{-5}
 $$
 
 
-Lo que nos indica que, en notación Big O, su complejidad temporal es **polinomial**, es decir:
+Lo que nos indica que, en notación Big O, su complejidad temporal es **lineal**, es decir:
 
 $$
-O(n * m)
+O(n)
 $$
 
 
-Esto coincide con el analisis previo realizado sobre el mismo algoritmo
+Pero porque no se supone que deberia ser $O(n x W)$ o  $O(n x L)$ bueno pues sucede por una cosa, y es que n  es constante osea es de 6 exactamente
+
+Esto quiere decir que nunca va a cambiar, y como es constante tendriamos $O(m)$ lo que da como resultado una complejidad lineal. 
+
+Dando asi que conincide con la regresion vista en nuestra grafica. 
+
 
 ## Conlcusiones
 
