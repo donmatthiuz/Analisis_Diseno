@@ -34,6 +34,14 @@ Se sabe que :
 
 ### DAC
 
+Para el enfoque divide an conquer, se utilizará este enfoque:
+
+- El algoritmo debe recibir 2 entradas, el array de monedas a utilizar y el valor de cambio a dar
+- El algoritmo da como resultado 2 salidas: el array de monedas utilizadas y el número mínimo de monedas usadas
+- Caso base 1: el valor de S = 0, en se caso retornamos que el número mímimo de monedas es de 0 y se devuelve un array vacío
+- Caso base 2: Si S < 0, devolvemos el valor infinito
+- Luego, recorremos el array de monedas y llamamos recursivamente la función, ahora el valor de S será la diferencia entre el valor de S inicia y el valor de la moneda a analizar.
+- Luego, si el valor del resultado obtenido no es igual a infinito y es menor al último valor almacenado del valor mínimo de monedas, entonces cambiamos el valor de mincoins y el del array de monedas usadas. 
 
 #### Fuentes
 
@@ -67,6 +75,8 @@ Ahora usaremos una tabla de tipo t[i, j] el numero de monedas es el valor de Xi 
 
 ## Analisis Teorico
 
+### DAC
+
 Para solucionar el problema usando estrategia de divide and conquer, se debe dividir el probelma inicial en subproblemas más pequeños, luego resolver dichos subproblemas y luego juntar sus soluciones para determinar el resultado del problema más grande. En este caso, la división del problema en subproblemas se hace analizando la diferencia del valor de cambio inicial con el valor de cada moneda del conjunto de datos disponibles, eso nos deja con la siguiente ecuación de recurrencia; 
 
 $$
@@ -80,7 +90,6 @@ Esta sería la representación de la división del problema usando un árbol de 
 
 En cada nodo dividermos el problema $$|coins|$$ veces y el peor caso lo obtenemos cuando la moneda de valor 1 está en el conjunto de monedas, pues por ejmplo, si tenemos un valor inciial de 50, para la moneda 1 haremos un subproblema del valor S-1 en cada nivel del árbol hasta que lleguemos a 0, esto hace que tengamos S niveles en total. Para cada nivel el número de nodos crecerá exponencialmente pues cada nodo lo dividiremos en $$|coins|$$ subproblemas, en cada nodo se ejecuta una operación de tiempo constante, entonces el tiempo total de ejecución en el peor de los casos será de $$O(|\text{coins}|^S)$$. 
 
-### DAC
 
 ### DP
 
