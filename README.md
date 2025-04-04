@@ -74,11 +74,15 @@ Ahora usaremos una tabla de tipo t[i, j] el numero de monedas es el valor de Xi 
 ### DAC
 
 ### DP
-
-
 Podemos ver en el siguiente grafico el resultado de compilar 30 diferentes tipos de cambios para los tipos de monedas {1,5,10,12,25,50}
 
-![alt text](image.png)
+- Tipos de Monedas
+{1,5,10,12,25,50}
+
+- Entradas:
+De 0 a 300 de 5 en 5
+
+![alt text](image-1.png)
 
 #### Analisis
 
@@ -89,11 +93,11 @@ $$
 $$
 
 
-Lo que nos indica que, en notación Big O, su complejidad temporal es **lineal**, es decir:
+Lo que nos indica que, en notación Big O, su complejidad temporal es **polinomial**, es decir:
 
 $$
-O(n)
+O(n * m)
 $$
 
 
-Esto coincide con el analisis previo realizado.
+Esto coincide con el analisis previo realizado sobre el mismo algoritmo
