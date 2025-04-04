@@ -74,3 +74,7 @@ Ahora usaremos una tabla de tipo t[i, j] el numero de monedas es el valor de Xi 
 ### DAC
 
 ### DP
+
+
+Podemos ver en el siguiente grafico el resultado de compilar 30 diferentes tipos de cambios para los tipos de monedas {1,5,10,12,25,50}
+

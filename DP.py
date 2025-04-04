@@ -100,12 +100,12 @@ def analisis_empirico():
 
     df = pd.DataFrame({
     'Cambio': cambios,
-    'Tiempo de Ejecución (segundos)': tiempos
+    'Tiempo de Ejecucion (segundos)': tiempos
     })
 
     
-    df.to_csv('tiempos_cambio.csv', index=False)
-    print("Datos guardados en 'tiempos_cambio.csv'")
+    df.to_excel("resultados_cambio_tiempo.xlsx", index=False)
+    print("Archivo Excel guardado como 'resultados_cambio_tiempo.xlsx'")
     
     
 
