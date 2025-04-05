@@ -4,8 +4,8 @@
 
 ## Integrantes
 
-- Pedro Pablo Guzman
-- Mathew Cordero Aquino
+- Pedro Pablo Guzman [22111]
+- Mathew Cordero Aquino [22982]
 
 ## Problema elegido.
 
