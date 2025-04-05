@@ -45,6 +45,13 @@ Para el enfoque divide an conquer, se utilizará este enfoque:
 - Luego, recorremos el array de monedas y llamamos recursivamente la función, ahora el valor de S será la diferencia entre el valor de S inicia y el valor de la moneda a analizar.
 - Luego, si el valor del resultado obtenido no es igual a infinito y es menor al último valor almacenado del valor mínimo de monedas, entonces cambiamos el valor de mincoins y el del array de monedas usadas. 
 
+
+#### Ejecucion
+
+```python
+python DAC.py
+```
+
 #### Fuentes
 
 - https://www.cs.uni.edu/~fienup/cs270s04/lectures/lec6_1-29-04_coin_change_web.htm
@@ -69,6 +76,13 @@ Ahora usaremos una tabla de tipo t[i, j] el numero de monedas es el valor de Xi 
 - j = cambio a devolver
 - i = tipo de monedas
 - i,j = cantidad de monedas de cada valor
+
+
+#### Ejecucion
+
+```python
+python DP.py
+```
 
 #### Fuentes:
 
@@ -125,7 +139,7 @@ $$
 Donde $$|coins|$$ es el número de monedas disponibles, $$S$$ es el cambio que debemos devolver, $$c$$ es el valor de una de las monedas del conjutno de monedas. Siempre se realizan operaciones de tiempo constante, por eso se agrega la notación $$O(1)$$
 Esta sería la representación de la división del problema usando un árbol de recursión: 
 
-![alt text](Arbol_recursion.png)
+![Arbol de Recursion DAC](Arbol_recursion.png)
 
 En cada nodo dividermos el problema $$|coins|$$ veces y el peor caso lo obtenemos cuando la moneda de valor 1 está en el conjunto de monedas, pues por ejemplo, si tenemos un valor incial de 50, para la moneda 1 haremos un subproblema del valor S-1 en cada nivel del árbol hasta que lleguemos a 0, esto hace que tengamos S niveles en total. Para cada nivel el número de nodos crecerá exponencialmente pues cada nodo lo dividiremos en $$|coins|$$ subproblemas. Al final tendremos un árbol de $$S$$ niveles con $$|coins|$$ nodos en cada nodo se ejecuta una operación de tiempo constante, eso nos deja que al final tengamos un árbol con $$(|coins|^S)$$ nodos y como cada uno ejecuta una tarea de tiempo constante, entonces decimos que la complejidad del algoritmo es: 
 
@@ -145,7 +159,7 @@ LLamaremos C(i,j) al número mínimo de monedas para
 obtener la cantidad j restringiéndose a los tipos T[1], T[2], ..., T[i].
 
 Si no se puede
-conseguir dicha cantidad entonces C(i,j) = ∞ o no hay manera de suplir la cantidad , esto sucede solo en 0. 
+conseguir dicha cantidad entonces C(i,j) = $\infty$ o no hay manera de suplir la cantidad , esto sucede solo en 0. 
 
 En cada paso tenemos 2 opciones
 
@@ -171,21 +185,21 @@ $$
 
 **Calcular Complejidad**
 
-Para esto vamos a usar la expansion de la recursion especificamente de $C(i,j)=min(C(i−1,j),1+C(i,j−T(i)))$
+Para esto vamos a usar la expansion de la recursion especificamente de $C(i,j)=min(C(i-1,j),1+C(i,j-T(i)))$
 
 El segundo término sugiere que podemos restar repetidamente 
-𝑇(𝑖) de  𝑗 es decir:
+T(i) de  j es decir:
 
-$$C(i,j)=1+C(i,j−T(i))$$
+$$C(i,j)=1+C(i,j-T(i))$$
 
-$$C(i,j)=2+C(i,j−2T(i))$$
+$$C(i,j)=2+C(i,j-2T(i))$$
 
-$$C(i,j)=3+C(i,j−3T(i))$$
+$$C(i,j)=3+C(i,j-3T(i))$$
 
 
 Asi hasta encontrar
 
-$$C(i,j)=k+C(i,j−kT(i))$$
+$$C(i,j)=k+C(i,j-kT(i))$$
 
 
 La dentemos hasta que j alncance el kT(i)<= 0, lo que significa que k es el numero de veces que podemos restar T(i) osea que k es:
@@ -202,9 +216,9 @@ O(j)
 $$
 
 Pero esto es sobre j, si iteramos sobre i entonces tendriamos que en terminos de i ada uno de los 
-𝑛
+n
 n niveles puede llegar a costar hasta 
-$𝑂(𝑗)$ en el peor caso.
+$O(j)$ en el peor caso.
 
 Osea
 
@@ -235,7 +249,7 @@ Para i desde 0 hasta longitud(monedas):                   # n
                 sin_usar ← INFINITO                         # T(1) + C - asignación simple
             Fin Si
             
-            Si tabla[i][j - xi] ≠ INFINITO entonces         # T(1) + C - comparación simple
+            Si tabla[i][j - xi] no es INFINITO entonces         # T(1) + C - comparación simple
                 con_usar ← tabla[i][j - xi] + 1             # T(1) + C - asignación y suma
             Sino
                 con_usar ← INFINITO                         # T(1) + C - asignación simple
@@ -298,7 +312,9 @@ Se usará este conjunto de monedas para el análisis: {1,5,10,12,25,50} y valore
 En el análisis teorico se determinó que el tiempo de ejecución de este algoritmo era de $$O(|\text{coins}|^S)$$, donde $$|coins|$$ es la cardinalidad del conjunto de monedas y $$S$$ es el valor inicial de la moneda, por esa razó´n en el script de python se utilizaron varias librerías para realizar una regresión lineal con los datos obtenidos. Los resultados fueron los siguientes:
 
 
-![alt text](coin_change_dac_regressions.png)
+![Grafica de Datos vs Tiempo en DAX ](image-8.png)
+
+
 
 Se puede observar que el modelo se adapta bien a un modelo exponecial, incluso el valor del coeficiente R^2 fue de 0.98. Por esa razón se puede confirmar que la complejidad temporal de un algoritmo que usa una estregia DAC para la solución del problema es exponencial. 
 
@@ -314,13 +330,16 @@ Podemos ver en el siguiente grafico el resultado de compilar 30 diferentes tipos
 {1,5,10,12,25,50}
 
 - Entradas:
-De 0 a 65
+De 0 a 160
 
-![alt text](image-6.png)
+![Regresion DP para Change Coin de 0 a 160](image-9.png)
 
 De 0 a 300
 
-![alt text](image-5.png)
+![Regresion de DP para Change Coin de 0 a 300](image-5.png)
+
+
+
 
 #### Analisis
 
