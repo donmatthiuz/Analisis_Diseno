@@ -80,7 +80,47 @@ Ahora usaremos una tabla de tipo t[i, j] el numero de monedas es el valor de Xi 
 
 ### DAC
 
-Para solucionar el problema usando estrategia de divide and conquer, se debe dividir el probelma inicial en subproblemas más pequeños, luego resolver dichos subproblemas y luego juntar sus soluciones para determinar el resultado del problema más grande. En este caso, la división del problema en subproblemas se hace analizando la diferencia del valor de cambio inicial con el valor de cada moneda del conjunto de datos disponibles, eso nos deja con la siguiente ecuación de recurrencia; 
+Para solucionar el problema usando estrategia de divide and conquer, se debe dividir el probelma inicial en subproblemas más pequeños, luego resolver dichos subproblemas y luego juntar sus soluciones para determinar el resultado del problema más grande. En este caso, la división del problema en subproblemas se hace analizando la diferencia del valor de cambio inicial con el valor de cada moneda del conjunto de datos disponibles. 
+
+Este es el pseudocódigo del algoritmo: 
+
+```pseudocodigo
+calcularMonedas (monedas, cambio_total):                   # Definición de la función
+    Si cambio_total es igual a 0:                          # Compración simple, T(1) + C
+        Devolver 0 y array vacío                           
+    Si cambio_total es menor que 0:                        # Comparación simple, T(1) + C
+        Devolver infinito y array vacío
+    monedas_necesarias = infinito                          # Asignación - T(1) + C
+    mejor_combinación = Array vacío                        # Asignación, T(1) + C
+                                                           # Si n es el número de monedas
+    Para cada moneda en monedas:                           # Se ejecuta n + 1 veces
+        resultado, combinacion = calcularMonedas(moendas, cambio_total - moneda)
+        # Recursión T(cambio_total - monedas)
+        Si resultado no es infinito y resultado + 1 < monedas necesarias: #Comparación, T(1)+C
+            monedas_mínimas = resultado +1  #Asignación, T(1) + C
+            mejor_combinación = combinacion + [moneda] # Asignación, T(1) + C
+
+    regresar monedas_necesarias, mejor_combinación
+```
+
+Se puede observar con el algoritmo que la mayoría de las operaciones requieren un tiempo constante para ejecutarse sin embargo la recursión se ejecuta n veces.
+
+Para formar la ecuación de recurrencia, debemos tener en cuenta que: 
+
+- Se cuenta con un conjunto que contiene todos los tipos de monedas disponibles que podemos utilizar para dar el cambio, a este conjunto le llameremos $$coins$$
+- $$S$$ hacereferencia al cambio inicial que debemos devolver con las monedas
+- La recuerrencia se ejecuta n veces, ahora lo llamaremos |coins| haciendo referencia que  es la cardinalidad del conjunto de monedas.
+
+Con eso en cuenta, tenemos esta relación de recursión: 
+
+$$
+T(S) =
+\begin{cases}
+\infty, & \text{si } S < 0  \\\\
+0, & \text{si } S = 0 \\\\
+|coins| * T(S-c) + O(1), & \text{si } S > 0  \\\\
+\end{cases}
+$$
 
 $$
 T(S) = |coins| * T(S-c) + O(1)
