@@ -122,17 +122,16 @@ T(S) =
 \end{cases}
 $$
 
-$$
-T(S) = |coins| * T(S-c) + O(1)
-$$
-
-Siempre se hace una operación de comparación la cuál tiene 
+Donde $$|coins|$$ es el número de monedas disponibles, $$S$$ es el cambio que debemos devolver, $$c$$ es el valor de una de las monedas del conjutno de monedas. Siempre se realizan operaciones de tiempo constante, por eso se agrega la notación $$O(1)$$
 Esta sería la representación de la división del problema usando un árbol de recursión: 
 
 ![alt text](Arbol_recursion.png)
 
-En cada nodo dividermos el problema $$|coins|$$ veces y el peor caso lo obtenemos cuando la moneda de valor 1 está en el conjunto de monedas, pues por ejmplo, si tenemos un valor inciial de 50, para la moneda 1 haremos un subproblema del valor S-1 en cada nivel del árbol hasta que lleguemos a 0, esto hace que tengamos S niveles en total. Para cada nivel el número de nodos crecerá exponencialmente pues cada nodo lo dividiremos en $$|coins|$$ subproblemas, en cada nodo se ejecuta una operación de tiempo constante, entonces el tiempo total de ejecución en el peor de los casos será de $O(|\text{coins}|^S)$. 
+En cada nodo dividermos el problema $$|coins|$$ veces y el peor caso lo obtenemos cuando la moneda de valor 1 está en el conjunto de monedas, pues por ejemplo, si tenemos un valor incial de 50, para la moneda 1 haremos un subproblema del valor S-1 en cada nivel del árbol hasta que lleguemos a 0, esto hace que tengamos S niveles en total. Para cada nivel el número de nodos crecerá exponencialmente pues cada nodo lo dividiremos en $$|coins|$$ subproblemas. Al final tendremos un árbol de $$S$$ niveles con $$|coins|$$ nodos en cada nodo se ejecuta una operación de tiempo constante, eso nos deja que al final tengamos un árbol con $$(|coins|^S)$$ nodos y como cada uno ejecuta una tarea de tiempo constante, entonces decimos que la complejidad del algoritmo es: 
 
+$$O(|\text{coins}|^S)$$ 
+
+Se observa que el tiempo de complejidad para este algoritmo es exponencial y depende del número de monedas y el tamaño del cambio total que debemos devolver. 
 
 ### DP
 
