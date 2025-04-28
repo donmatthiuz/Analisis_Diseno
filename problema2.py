@@ -22,15 +22,15 @@ def largestCross(matriz):
                 bottom[i][j] = (bottom[i+1][j] if i < n-1 else 0) + 1
 
     # Encontrar la cruz más grande
-    max_cross = 0
+    cruz_maxima = 0
     for i in range(n):
         for j in range(n):
             if matriz[i][j] == 1:
                 size = min(left[i][j], right[i][j], top[i][j], bottom[i][j])
                 if size >=2:
-                  max_cross = max(max_cross, 4 * (size - 1) + 1)  # cada brazo más el centro
+                  cruz_maxima = max(cruz_maxima, 4 * (size - 1) + 1)  # cada brazo más el centro
 
-    return max_cross
+    return cruz_maxima
 
 # Ejemplo de uso:
 matriz_17 = [
