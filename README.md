@@ -104,7 +104,7 @@ bottom = [[0]*n for _ in range(n)]
 
 for i in range(n):
     for j in range(n):
-        if matriz[i][j] == 1:
+        if matriz[i][j] == 1: # T(1)
             left[i][j] = (left[i][j-1] if j > 0 else 0) + 1
             top[i][j] = (top[i-1][j] if i > 0 else 0) + 1
 
@@ -126,3 +126,103 @@ for i in range(n):
 
 return max_cross
 ```
+
+
+Para su analisis vamos a verificar cada parte del codigo
+
+Para llenar las matrices
+
+$$
+T(n) = \sum_{i=0}^{n} \sum_{j=0}^{n} 4T(1) + C 
+$$
+
+Porque son 4 matrices al final nos da
+
+$$
+T(n) = \sum_{i=0}^{n} n + C
+$$
+
+$$
+T(n) = n * n
+$$
+
+Lo que da 
+$$
+T(n) = n^2
+$$
+
+
+Para el resto del codigo tendriamos que 
+
+$$
+T(n) = \sum_{i=0}^{n} \sum_{j=0}^{n} 3T(1) + C \sum_{i=0}^{n} \sum_{j=0}^{n} 3T(1) + C \sum_{i=0}^{n} \sum_{j=0}^{n} 4T(1) + C 
+$$
+
+
+Al simplificarlo nos daria 
+
+$$
+T(n) = 3\sum_{i=0}^{n} \sum_{j=0}^{n} 3T(1)  + 3T(n) + 4T(n) + C 
+$$
+
+$$
+T(n)=9T(1)(n+1)^2+3T(n)+4T(n)+C
+$$
+
+$$
+T(n)=9T(1)(n+1)^2+7T(n)+C
+$$
+
+$$
+T(n)−7T(n)=9T(1)(n+1)^2+C
+$$
+
+$$
+−6T(n)=9T(1)(n+1)2+C
+$$
+
+$$
+T(n)=-\frac{9T(1)(n+1)^2​}{6} - \frac{C}{6}​
+$$
+
+$$
+T(n)=-\frac{3T(1)(n+1)^2​}{2} - \frac{C}{6}​
+$$
+
+
+Ahora expandimos $(n+1)^2$
+
+$$
+T(n)=-\frac{3T(1)(n^2+2n+2)​}{2} - \frac{C}{6}​
+$$
+
+$$
+T(n)=-\frac{3T(1)n^2​}{2} -3T(1)n - \frac{3T(1)}{2}- \frac{C}{6}​
+$$
+
+Tomamos el resto como constantes.
+
+$$
+T(n)=-\frac{3T(1)n^2​}{2}
+$$
+
+Sabemos que 3/2 es constante entonces 
+
+$$
+T(n) = n^2
+$$
+
+Por lo tanto el valor total de su complejidad seria
+
+$$
+T(n) = n^2 + n^2 = 2n^2
+$$
+
+Lo que da al final que la complejidad del algoritmo es de 
+
+$$
+T(n) = O(n^2)
+$$
+
+
+

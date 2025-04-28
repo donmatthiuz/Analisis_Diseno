@@ -1,4 +1,4 @@
-def largestCross(matriz):
+def cruz_mas_larga(matriz):
     n = len(matriz)
 
     
@@ -55,4 +55,4 @@ matriz_0 = [
 [ 1 , 0 , 0 , 1 , 0 , 1 ] ,
 [ 1 , 0 , 1 , 1 , 0 , 0 ]
 ]
-print(largestCross(matriz_17))  # Debería imprimir 17
+print(cruz_mas_larga(matriz_17))  # Debería imprimir 17
