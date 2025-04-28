@@ -36,6 +36,17 @@ extra tendr ́a.
 
 ## Problemas
 
+
+### 2.1 Problema 1 [40 puntos]
+
+Dado un numero positivo n y un teclado movil de un Nokia 3230, que tiene digitos del 0 al 9
+asociados con cada tecla, se desea contar el total de combinaciones posibles de diıgitos de longitud n.
+Podemos comenzar con cualquier digito y presionar solo cuatro teclas adyacentes a cualquier digito.
+El teclado tambien contiene las teclas ∗ y #, las cuales no estan permitidas presionar. Por ejemplo
+para:
+
+
+
 ### 2.2 Problema 2 [40 puntos]
 
 Dada una matriz cuadrada de 0’s y 1’s, calcule el tama˜no de la cruz (s´ımbolo de suma +) m´as grande
