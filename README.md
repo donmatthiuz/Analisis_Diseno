@@ -11,7 +11,7 @@
 
 - Debe realizar este examen de forma individual.
 
--Debe entregar la respuesta a las preguntas planteadas acompa ̃nada de un an ́alisis riguroso y
+- Debe entregar la respuesta a las preguntas planteadas acompa ̃nada de un an ́alisis riguroso y
 explicaci ́on pertinente, i.e., no se aceptar ́an respuestas sin procedimiento ni explicaci ́on y la
 nota ser ́a autom ́aticamente de cero puntos.
 
@@ -45,7 +45,49 @@ Podemos comenzar con cualquier digito y presionar solo cuatro teclas adyacentes 
 El teclado tambien contiene las teclas ∗ y #, las cuales no estan permitidas presionar. Por ejemplo
 para:
 
+```
+// Cantidad de digitos n
+n = 2
 
+
+// Mapping del teclado del Nokia
+keypad = [
+[ ’ 1 ’ , ’ 2 ’ , ’ 3 ’ ] ,
+[ ’ 4 ’ , ’ 5 ’ , ’ 6 ’ ] ,
+[ ’ 7 ’ , ’ 8 ’ , ’ 9 ’ ] ,
+[ ’ ∗ ’ , ’ 0 ’ , ’#’ ]
+]
+```
+
+Input : n = 2
+
+Output : 36
+
+Explicacion : El total de combinaciones posibles son 36
+[ 0 0 , 0 8 , 1 1 , 1 2 , 1 4 , 2 1 , 2 2 , 2 3 , 2 5 , 3 2 , 3 3 , 3 6 , 4 1 , 4 4 , 4 5 , 4 7 ,
+. . . , 9 6 , 9 8 , 9 9]
+
+- Explique porque este problema exhibe subestructura optima. 
+
+- Explique una idea/solucion que exhiba subproblemas traslapados e indique como los mismos
+subproblemas se computan repetidamente
+
+
+- Sabemos que los problemas con subestructura optima y subproblemas traslapados pueden
+resolverse utilizando programacion dinamica, donde las soluciones de subproblemas se memoizan en lugar de calcularse repetidamente. Escriba un codigo en Python con enfoque de
+memoizacion top-down que resuelva este problema. Coloque un enlace a un GitHub Gist
+privado con la solucion. Recuerde que debe crear tambien un video en donde muestre la
+ejecucion de su codigo.
+
+
+[Link del Codigo](./problema1.py)
+[Link al Video](https://youtu.be/SRTwNweUDCM)
+
+- Encuentre el tiempo de complejidad para este algoritmo. Recuerde, deje su procedimiento.
+
+- Usando su programa, encuentre las combinaciones totales posibles para n = 10.
+
+![alt text](image-1.png)
 
 ### 2.2 Problema 2 [40 puntos]
 
@@ -71,7 +113,7 @@ g ri d = [
 
 
 Output : 17
-E x pli c a ci o n : La c r u z ( simb ol o de suma +) mas grande de 1 s s e e n c u e n t r a
+E x pli c a ci o n : La c r u z ( simbolo de suma +) mas grande de 1 s s e e n c u e n t r a
 aba jo , t e ni e n d o un tamano de 1 7.
 
 ![alt text](image.png)
@@ -79,7 +121,7 @@ aba jo , t e ni e n d o un tamano de 1 7.
 Inpu t :
 
 ```
-g ri d = [
+gri d = [
 [ 1 , 1 , 1 , 1 , 1 , 1 ] ,
 [ 1 , 0 , 1 , 1 , 0 , 1 ] ,
 [ 0 , 1 , 1 , 0 , 0 , 1 ] ,
@@ -95,10 +137,11 @@ Explicación: No se puede construir una cruz (+) más grande usando los 1s.
 
 
 - Coloque un enlace a un GitHub Gist privado con la soluci´on. Recuerde que debe crear
-tambi´en un video en d´onde muestre la ejecuci´on de su c´odigo. Use como prueba el input
+tambien un video en donde muestre la ejecucion de su codigo. Use como prueba el input
 proporcionado. (30 puntos).
 
-
+[Link del Codigo](./problema2.py)
+[Link al Video](https://youtu.be/-FDkk-bHXPg)
 
 - Encuentre el tiempo de complejidad para este algoritmo. Recuerde, deje su procedimiento.
 (10 puntos)

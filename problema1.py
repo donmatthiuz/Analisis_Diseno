@@ -19,25 +19,25 @@ def count_nokia_combinations(n):
                     if 0 <= ni < rows and 0 <= nj < cols and keypad[ni][nj].isdigit():
                         vecinos[key].append(keypad[ni][nj])
     
-    memo = {}
+    valores_calculados = {}
     
-    def dp(digit, length):
-        if (digit, length) in memo:
-            return memo[(digit, length)]
+    def algoritmo_solucion(digit, length):
+        if (digit, length) in valores_calculados:
+            return valores_calculados[(digit, length)]
         
         if length == 1:
             return 1
         
         count = 0
-        for next_digit in vecinos[digit]:
-            count += dp(next_digit, length - 1)
+        for siguiente_digito in vecinos[digit]:
+            count += algoritmo_solucion(siguiente_digito, length - 1)
         
-        memo[(digit, length)] = count
+        valores_calculados[(digit, length)] = count
         return count
     
     total_combinations = 0
     for digit in '0123456789':
-        total_combinations += dp(digit, n)
+        total_combinations += algoritmo_solucion(digit, n)
     
     return total_combinations
 

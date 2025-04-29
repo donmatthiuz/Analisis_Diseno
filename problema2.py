@@ -55,4 +55,4 @@ matriz_0 = [
 [ 1 , 0 , 0 , 1 , 0 , 1 ] ,
 [ 1 , 0 , 1 , 1 , 0 , 0 ]
 ]
-print(cruz_mas_larga(matriz_17))  # Debería imprimir 17
+print(cruz_mas_larga(matriz_0))  # Debería imprimir 17
