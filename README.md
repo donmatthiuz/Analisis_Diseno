@@ -85,6 +85,73 @@ ejecucion de su codigo.
 
 - Encuentre el tiempo de complejidad para este algoritmo. Recuerde, deje su procedimiento.
 
+Mi codigo es 
+```
+def algoritmo_solucion(digit, length):
+        if (digit, length) in valores_calculados:
+            return valores_calculados[(digit, length)]
+        
+        if length == 1:
+            return 1
+        
+        count = 0
+        for siguiente_digito in vecinos[digit]:
+            count += algoritmo_solucion(siguiente_digito, length - 1)
+        
+        valores_calculados[(digit, length)] = count
+        return count
+    
+    total_combinations = 0
+    for digit in '0123456789':
+        total_combinations += algoritmo_solucion(digit, n)
+    
+    return total_combinations
+```
+
+Para esto vamos a calcular la formula de recursion del algoritmo.
+
+La formula de recursion es 
+
+$$
+T(S) =
+\begin{cases}
+1, & \text{si } l = 1  \\\\
+
+\sum{}{}d' \in vecinos(d) f(d', l-1), & \text{si } l > 1  \\\\
+\end{cases}
+$$
+
+Donde l es el lenght del parametro y el caso base el n que se pasa como parametro lenght en la funcion sera 1. 
+
+Y d' es el siguiente digito alcanzado apartir de d. 
+
+
+Para detectar la sumatoria tendriamos que
+
+$$
+f(d, l) = \sum{}{}f(d',l-1)
+$$
+
+Para cada par $(d,l)$ haces tantas sumas como digitos.
+
+El numero de vecinos por digito es k y k <= 8
+
+Por ello $f(d,l)$ realiza k llamadas recursivas a $f(d,l-1)$ pero (d,l) se calcula una sola vez.
+
+Por ende ti tenemos 10 posibles digitos y n posibles longitudes 
+
+Entonces el total de estados es $10 * n$
+
+cada estado sabemos que toma $O(k)$ para hacer la suma de vecinos . 
+
+Por ende 
+
+$$O(10  * n * k)$$
+
+Como 10 y k son constantes entonces 
+
+$$O(n)$$
+
 - Usando su programa, encuentre las combinaciones totales posibles para n = 10.
 
 ![alt text](image-1.png)

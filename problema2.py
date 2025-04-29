@@ -14,21 +14,23 @@ def cruz_mas_larga(matriz):
                 left[i][j] = (left[i][j-1] if j > 0 else 0) + 1
                 top[i][j] = (top[i-1][j] if i > 0 else 0) + 1
 
-    # Llenar right y bottom
+  
     for i in range(n-1, -1, -1):
         for j in range(n-1, -1, -1):
             if matriz[i][j] == 1:
+                
                 right[i][j] = (right[i][j+1] if j < n-1 else 0) + 1
                 bottom[i][j] = (bottom[i+1][j] if i < n-1 else 0) + 1
 
-    # Encontrar la cruz más grande
+  
     cruz_maxima = 0
     for i in range(n):
         for j in range(n):
             if matriz[i][j] == 1:
                 size = min(left[i][j], right[i][j], top[i][j], bottom[i][j])
+                
                 if size >=2:
-                  cruz_maxima = max(cruz_maxima, 4 * (size - 1) + 1)  # cada brazo más el centro
+                  cruz_maxima = max(cruz_maxima, 4 * (size - 1) + 1) 
 
     return cruz_maxima
 
@@ -55,4 +57,4 @@ matriz_0 = [
 [ 1 , 0 , 0 , 1 , 0 , 1 ] ,
 [ 1 , 0 , 1 , 1 , 0 , 0 ]
 ]
-print(cruz_mas_larga(matriz_0))  # Debería imprimir 17
+print(cruz_mas_larga(matriz_0))
