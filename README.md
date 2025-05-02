@@ -69,8 +69,38 @@ Explicacion : El total de combinaciones posibles son 36
 
 - Explique porque este problema exhibe subestructura optima. 
 
+Tiene subestructura optima porque el numero de secuencias se puede calcular del numero de secuencias - 1 .
+
+Entonces definimos que la cantidad que el numero de secuencias es:
+
+
+$$
+count(n, d) = \sum_{adj(d)}{count(n-1, x)}
+$$
+
+Por lo tanto es optima porque
+
+Para calcular las combinaciones de longitud 
+$n$ que terminan en el dígito $d$, solo necesitamos las combinaciones de longitud $n−1$
+que terminan en dígitos adyacentes a $d$
+
+
+
 - Explique una idea/solucion que exhiba subproblemas traslapados e indique como los mismos
 subproblemas se computan repetidamente
+
+
+Bueno para hacer esto podemos definir un arbol de recursion de la siguiente manera
+
+![alt text](image-3.png)
+
+
+Podemos ver que recorriendo el arbol de recursion, en cada siguiente nivel se recorren los vecinos del nodo padre, y se encuentran el numero de combinaciones desde ese vecino hasta el padre. 
+
+Aqui es donde ocurren los problemas traslapados. De hecho podemos ver que se repite calculos por ejemplo en cada uno de los niveles se calcula count(2, 6) y count(2,2)  que llegan siempre los mismos a count(1,1)  se calcula cada vez que consideramos llegar a '2' o '4'
+
+Para ello usaremos programacion dinamica con memorizacion guardando en una tabla lo ya calculado, asi cuando se repita la misma entrada o input podremos regresar a devolver el mismo output que nos dio la vez pasada. Esto en una tabla grid con los valores de n y d. 
+
 
 
 - Sabemos que los problemas con subestructura optima y subproblemas traslapados pueden
@@ -81,6 +111,7 @@ ejecucion de su codigo.
 
 
 [Link del Codigo](./problema1.py)
+
 [Link al Video](https://youtu.be/SRTwNweUDCM)
 
 - Encuentre el tiempo de complejidad para este algoritmo. Recuerde, deje su procedimiento.
@@ -115,11 +146,11 @@ La formula de recursion es
 $$
 T(S) =
 \begin{cases}
-1, & \text{si } l = 1  \\\\
-
-\sum{}{}d' \in vecinos(d) f(d', l-1), & \text{si } l > 1  \\\\
+1, & \text{si } l = 1 \\
+\sum_{d' \in vecinos(d)} f(d', l-1), & \text{si } l > 1
 \end{cases}
 $$
+
 
 Donde l es el lenght del parametro y el caso base el n que se pasa como parametro lenght en la funcion sera 1. 
 
@@ -208,6 +239,7 @@ tambien un video en donde muestre la ejecucion de su codigo. Use como prueba el 
 proporcionado. (30 puntos).
 
 [Link del Codigo](./problema2.py)
+
 [Link al Video](https://youtu.be/-FDkk-bHXPg)
 
 - Encuentre el tiempo de complejidad para este algoritmo. Recuerde, deje su procedimiento.
@@ -345,5 +377,57 @@ $$
 T(n) = O(n^2)
 $$
 
+
+
+### 2.3 Problema 3 [5 puntos]
+
+#### *Planteamiento*
+Verdadero o Falso: Una solucion optima para un knapsack problem siempre contendra el objeto i con la mayor relacion valor-costo vi/ci
+. Explique
+
+#### *Solucion*
+Falso , pues no necesariamente aqui lo que se busca es que se maximice lo que podemos llevar no el objeto iesimo que tiene la mayor cantidad.
+
+Tambien porque el objeto con mayor costo puede ser demasiado grande, espacio que objetos mas pequeños podrian aportar mucho mas.
+
+
+
+### 2.5 Problema 5 [15 puntos]
+
+
+#### *Planteamiento*
+
+Dada una matriz T de m×n sobre un campo (como los reales), demuestre que (S, I) es una matroide, en donde S es el conjunto de las columnas de T y A pertenece a I si y solo si las columnas en A son linealmente independientes
+
+#### *Solucion*
+
+
+Verificamos los 3 axiomas de la matroide
+
+- 1 El conjunto vacío es independiente
+
+El conjunto vacio es linealmente independiente por lo que no pertenece a $I$
+
+- 2. Todo subconjunto de un conjunto independiente es independiente
+
+
+Para este como A pertenece a I un conjunto independiente y B es un subconjunto de A.
+
+Las columnas de A perteneciente a I son linealmente independientes , $B \subseteq A$, esto quiere decir que las columnas de B son parte de A. Pero si esto existe quiere decir que A es dependiente de B y viceversa y esto no es posible asi que $B\in I$
+
+- 3  Propiedad de intercambio
+
+Sabemos que $|A|<|B|$ se debe encontrar e $\in$ B - A tal que A $\cup$ {e} $\in$ I.
+
+Si s es s = $|A|<|B|$ = f entonces A contiene s columnas linealmente independientes, mientras que B contiene f columnas linealmente independientes.
+
+Si todas las columnas de B estuvieran en A o en el espacio V, entonces tendríamos span(B) $\subseteq$ V, y la dimensión de span(B) sería a lo sumo f
+
+Pero esto es contradictorio pues B tiene f > s columnas linealmente independientes, lo que implica que dim(span(B)) = f > s.
+
+Por lo tanto en B debe haber una columna que no sea de A. Por ende tenemos que {e} $\cup$ A son linealmente independientes
+
+Porque se cumplen estas 3 axiomas podemos decir que 
+$(S,I)$ es una matroide
 
 
