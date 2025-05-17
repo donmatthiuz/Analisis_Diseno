@@ -7,395 +7,479 @@
 - Mathew Cordero 22982
 - Pedro Guzman 22111
 
-## **1 . ¿Que podemos decir acerca del tiempo de ejecucion en diferentes ejecuciones de un algoritmo aleatorizado? ¿Que es lo que podemos medir al analizar un algoritmo aleatorizado?**
+# 1:  Supongamos que se ejecutan n operaciones (entre push, pop y multipop) sobre una pila con n elementos. ¿Que operacion individual ser ́ıa la mas costosa que podemos re-alizar? ¿Que tasa de crecimiento ver ́ıamos sobre el tiempo de ejecucion, si las n operaciones fueran la mas costosa?
 
 
-Un algoritmo aleatorizado tiene un tiempo de ejecucion de estimacion. Esto se debe a la naturaleza volatil de los algoritmos que se analizan. Por lo  tanto es como si se calculase una probabilidad sobre el tiempo estiamado dado por $E[x]$  donde x sera n en O(n) 
+## Respuesta
+
+La mas costosa que podemos realizar es la de multipop. Pop y push solo tienen un costo de $O(1)$ como se menciono anteriormente en el documento. 
+En cambio multipop se hace por cada k elementos superiores a la fila o todos si es menos que k . Por ende su costo es todos los elementos de la fila o $O(n)$.
+
+Si las n operaciones fueran las mas costosas veriamos que la tasa de crecimiento seria de $O(n^2)$. Porque en un escenario normal despues del primer multipop, en el segundo y tercero tendriamos que la pila esta vacia. Pero en este escenario la pila se rellena una y otra vez . Por lo que tendriamos n iteraciones de multipop osea $n*O(n)  = O(n^2)$ 
 
 
-![alt text](image_h.png)
+
+# 2: ¿Que contradicciones encontramos en este escenario? ¿Que contradicciones encontramos si suponemos que las n operaciones se efectuan sobre una pila inicialmente vacia? Hint: ya lo mencionamos hace algunos slides.
 
 
-## **2. ¿Cuales son el best-case y worst-case scenarios para este algoritmo?**
+
+## Solucion
+
+El problema es que esto no se mantiene en el tiempo. Ya que al terminar la iteracion primera del multipop ya no hay manera de tener mas elementos de nuestra pila. 
+
+De hecho si inicialmente nuestra pila esta vacia aqui vemos que mencionaron anteriormente. "El número de iteraciones del ciclo while es el mínimo de s y k objetos sacados de la pila.".
+
+Esto quiere decir que no podemos realizar mas operaciones pop o multipop que operaciones push, porque es necesario algo en la lista para poder sacarlo.  Esto sigue con la misma contradiccion que el numero de elementos extraidos no excede el numero de elementos insertados. 
+
+Por ende el costo seria de O(1) y no O(n). 
 
 
-Para hacer este analisis analizamos cada linea
+# 3: ¿Cual es el tiempo de ejecucion de una secuencia realista de n operaciones push, pop y/o multipop sobre una pila inicialmente vacia? ¿Como se afectan las operaciones push y pop entre si, al respecto de su proporcion en las n operaciones?
 
-### Worst Case
 
-En este caso para analizarlo vamos a ir linea por linea
 
-Hiring Algorithm
+## Solucion
 
-```
+La secuencia realista entonces seria de O(n). Que es el tiempo total de elementos extraidos por el multipop, y de O(1) por cada operacion de pop y push. 
 
-1    best = nadie   ---> O(1)
-2    for i = 1 to n   -> sumatoria hasta n
-3        entrevistar candidato i  ---> O(1)
-4        if candidato i es mejor que best ---> O(1)
-5            best = candidato i ---> O(1)
-6            contratar(candidato i) ---> O(1)
-```
+Sabemos que 
+- Cada elemento puede ser insertado en la pila sólo una vez (mediante push)
 
-Teniendo un arreglo de usuarios de tamaño n entonces vamos a definir que 
+- Cada elemento puede ser eliminado de la pila sólo una vez (mediante pop o como parte de multipop)
 
+
+Por ende el unico tiempo sera el afectado por $O(n)$ de las operaciones multipop de la pila. 
+
+
+Las operaciones se verian afectadas entre si segun su proporcion debido a que la pila aunque crezca el tiempo es O(n). Y aunque existan mas pop no podran sacar mas.  La proporción entre push y pop afecta al tamaño máximo de la pila durante la ejecución, lo que impacta en el uso de memoria, pero sigue siendo el mismo tiempo de ejecucion independientemente. 
+
+
+
+
+# 4 En 'promedio', ¿cuánto contribuye cada operación de la secuencia a este tiempo de ejecución? ¿Qué diferencia hay entre este costo amortizado y el costo real de cada operación?
+
+En promedio, cada operación contribuye con un costo amortizado de O(1) al tiempo de ejecución total. Esto significa que aunque algunas operaciones individuales puedan ser costosas (como MULTIPOP que podría tener un costo de O(n) en el peor caso), al considerar una secuencia de n operaciones, el costo total es O(n), dando un costo promedio constante por operación.
+La diferencia entre este costo amortizado y el costo real de cada operación es que:
+
+El costo real puede variar significativamente entre operaciones. Algunas operaciones como POP o PUSH tienen costo constante de 1, mientras que MULTIPOP puede tener un costo de hasta n (el tamaño de la pila).
+El costo amortizado distribuye el costo total entre todas las operaciones, ofreciendo una "media" que permite analizar mejor el rendimiento en el tiempo.
+Las operaciones costosas (como MULTIPOP) son "compensadas" por operaciones más baratas (como PUSH o POP), resultando en un costo amortizado constante para la secuencia completa.
+
+# 5 ¿De qué, principalmente, depende el tiempo de ejecución de este algoritmo? Tomando esto en cuenta, ¿cuál sería el worst-case scenario y cuál sería la cota pesimista para el tiempo de ejecución de n operaciones Increment?
+
+El tiempo de ejecución del algoritmo INCREMENT depende principalmente de la cantidad de bits que deben modificarse (bits que cambian de 1 a 0 o de 0 a 1) en cada operación.
+Específicamente, cuando realizamos un incremento, el número de bits modificados puede variar. En el mejor caso, solo se modifica un bit (cambiar un 0 a 1). En el peor caso, se modifican todos los bits del contador (cuando todos los bits son 1 y deben cambiar a 0, y se agrega un 1 adicional).
+El worst-case scenario ocurre cuando tenemos que realizar un incremento que requiere modificar todos los k bits del contador. Esto sucede cuando el contador tiene todos sus bits en 1 (por ejemplo, cuando es $$2^k - 1$$ y se incrementa a $$2^k$$).
+La cota pesimista para el tiempo de ejecución de $$n$$ operaciones INCREMENT sería $$O(nk)$$ si consideramos el peor caso para cada operación. Sin embargo, el análisis amortizado demuestra que el costo total es en realidad $$O(n)$$, lo que significa que el costo amortizado por operación es $$O(1)$$, independientemente del número de bits que se modifiquen en una operación particular.
+Esto es posible porque las operaciones costosas (que modifican muchos bits) ocurren con poca frecuencia, y el análisis amortizado distribuye este costo entre todas las operaciones.
+
+
+# Pregunta 6
+
+En general, ¿cuántas veces cambiará el $\text{i-ésimo}$ bit (de derecha a izquierda) al hacer $n$ incrementos a un número binario con $k$ bits? ¿Qué proporción de $n$ acotaría por arriba el costo total de los $n$ incrementos al número? Investigue la serie geométrica y presente su procedimiento para encontrar la cota.
+
+## 1. **¿Cuántas veces cambia el i-ésimo bit?**
+
+* Cada vez que se incrementa el contador, el bit en la posición $i$ cambia de 0 a 1 solo si los bits de menor peso han generado un acarreo que lo afecta.
+* Esto sucede cada $2^i$ incrementos.
+
+Entonces, en $n$ incrementos, el i-ésimo bit cambiará:
 
 $$
-T(n) = \sum_{i=0}^{n} 4O(1) + C
+\left\lfloor \frac{n}{2^i} \right\rfloor \text{ veces}
+$$
+
+## 2. **¿Cuál es el costo total de los cambios de bits?**
+
+El costo total es la suma de todos los cambios de bits:
+
+$$
+\sum_{i=0}^{k-1} \left\lfloor \frac{n}{2^i} \right\rfloor \leq n \sum_{i=0}^{\infty} \frac{1}{2^i}
+$$
+
+La serie geométrica converge a:
+
+$$
+\sum_{i=0}^{\infty} \frac{1}{2^i} = \frac{1}{1 - \frac{1}{2}} = 2
+$$
+
+Por lo tanto, el costo total de los n incrementos es:
+
+$$
+\mathcal{O}(n) \times 2 = \mathcal{O}(n)
+$$
+
+## 3. **¿Qué proporción de $n$ acota por arriba el costo total?**
+
+La proporción es 2n, por la convergencia de la serie. Esto nos permite afirmar que el costo total de los cambios de bits en $n$ incrementos es a lo sumo 2n, es decir, sigue siendo lineal.
+
+
+# Pregunta 7
+
+¿Qué diferencias podemos percibir respecto a los costos que asigna este método, comparado con el método de agregación? ¿Qué debemos asegurar al asignar los costos de cada operación para que la secuencia se complete con éxito? ¿Durante la ejecución de la secuencia, podríamos estar algún momento “en deuda”?
+
+## 1. **Diferencias entre el Método de Agregación y el Método Contable**
+
+* **Método de Agregación:**
+  Suma el costo total de las operaciones y divide entre $n$. Se obtiene un único costo promedio para todas las operaciones.
+
+* **Método Contable:**
+  Permite asignar costos artificiales (mayores o menores) a las operaciones. Esto ayuda a manejar mejor las operaciones que anticipan costos futuros (por ejemplo, `push` paga por su propio costo y por un futuro `pop`).
+
+## 2. **¿Qué debemos asegurar al asignar los costos de cada operación?**
+
+* Que el crédito nunca sea negativo.
+* Formalmente, se debe cumplir la desigualdad:
+
+$$
+\sum_{i=1}^{n} \hat{c}_i \geq \sum_{i=1}^{n} c_i
+$$
+
+Esto garantiza que los créditos acumulados cubren los costos futuros, evitando un "déficit" en la estructura de datos.
+
+## 3. **¿Durante la ejecución podríamos estar ‘en deuda’?**
+
+No. Si el crédito es negativo, significa que hemos subestimado el costo de operaciones pasadas, y no podremos cubrir los costos reales futuros. Esto rompe la validez del análisis amortizado.
+
+
+# Pregunta 8
+
+Si hemos insertado $n$ elementos, ¿cuántas expansiones (potencias de dos) habrán ocurrido? Complete la desigualdad que acota el tiempo de ejecución de las $n$ inserciones:
+
+$$
+\sum_{i=1}^{n} c_i \leq n + \ldots
+$$
+
+## 1. **¿Cuántas expansiones han ocurrido al insertar $n$ elementos?**
+
+* Cada vez que la tabla se llena, se duplica su capacidad.
+
+* Las expansiones ocurren en las potencias de dos:
+
+  * Primera expansión cuando insertamos el 1er elemento (capacidad 1).
+  * Segunda expansión al insertar el 2do elemento (capacidad 2).
+  * Tercera expansión al insertar el 4to elemento (capacidad 4).
+  * Y así sucesivamente.
+
+* En total, se han hecho:
+
+$$
+\lfloor \log_2 n \rfloor \text{ expansiones.}
+$$
+
+## 2. **Costo de las Inserciones**
+
+* Cada inserción tiene un costo de 1, excepto cuando hay expansión, en cuyo caso también pagamos por copiar los elementos existentes.
+
+* El costo total es:
+
+$$
+\sum_{i=1}^{n} c_i \leq n + \sum_{j=0}^{\lfloor \log_2 n \rfloor} 2^j
+$$
+
+* La segunda suma es el costo de copiar los elementos durante cada expansión:
+
+$$
+\sum_{j=0}^{\lfloor \log_2 n \rfloor} 2^j = 2^{\lfloor \log_2 n \rfloor + 1} - 1 \leq 2n - 1
+$$
+
+## 3. **Desarrollo de la Desigualdad**
+
+$$
+\sum_{i=1}^{n} c_i \leq n + (2n - 1) = 3n - 1 \in \mathcal{O}(n)
 $$
 
 
-$$
-T(n) = \sum_{i=0}^{n} O(1)
-$$
+# 9: ¿Cuál es la fórmula para calcular el costo amortizado de una operación con esta perspectiva? ¿Cuál sería la fórmula para el costo amortizado total de una secuencia de n operaciones?
 
-$$
-T(n) = (n+1)⋅O(1)
-$$
+## Método del Costo Agregado
+Se toma el costo real de cada operación y se “promedia” sobre todas las operaciones de la secuencia.
+---
+**Formula:**
 
-$$
-T(n) = O(n)
-$$
+   * Sea $c_i$ el costo real de la operación $i$.
+   * El **costo total real** de $n$ operaciones es
 
-### Best Case
+     $$
+       C_{\text{total}} = \sum_{i=1}^{n} c_i.
+     $$
+   * El **costo amortizado por operación** (constante) es
 
-Para este sabemos que el mejor siempre va  a ser el primero ya que la lista viene ordenada de mayor a menor por ende el best case es:
+     $$
+       \hat{c} = \frac{C_{\text{total}}}{n}
+                   = \frac{1}{n}\sum_{i=1}^{n} c_i.
+     $$
 
-$$
-O(1)
-$$
+3. **Fórmula final** 
 
+   $$
+     \boxed{\hat{c} = \frac{1}{n}\sum_{i=1}^{n} c_i.}
+   $$
 
-## **3. ¿De que depende el costo de este algoritmo de solucion para el hiring problem? ¿Cual parte de ese costo podemos calcular directamente y cual no? ¿Que nos impide calcular la parte que no podemos?**
+4. **Costo amortizado total de la secuencia de $n$ operaciones:**
 
+   $$
+     n \times \hat{c}
+     = n \times \frac{1}{n} \sum_{i=1}^{n} c_i
+     = \sum_{i=1}^{n} c_i
+     = C_{\text{total}}.
+   $$
 
-- El costo depende exclusivamente de quien es el mejor , y el mejor sera dado por el costo de entrevistar y el costo de contratar a nuestro usuario.
+---
 
-Entonces si lo definimos en variables serian Costo de contratacion (Ch), Costo de entrevista (Ci) , Numero de candidatos (n)
+## 2. Método de la Función de Potencial
 
+Asociamos a cada estado del dato (estructura) una “energía” o potencial $\Phi$. Si el estado pasa de $D_{i-1}$ a $D_i$ tras la operación $i$, el cambio de potencial amortigua picos de costo.
 
-- El costo de entrevistas se calcula directamente, Sabemos el numero de candidatos (n) y podemos estimar el costo de entrevistar a cada uno.
+**Definiciones:**
 
-- Lo que no se puede calcular de manera directa es el costo de contratar. Esto porque dependera de cuando encontremos un nuevo mejor candidato, es como cuando se recalcula el valor de los mejores que hemos encontrado por cada nueva corrida. Esto solamente es un valor estimado.
+   * $c_i$: costo real de la operación $i$.
+   * $\Phi(D)$: potencial asociado al estado $D$.
+   * Se requiere $\Phi(D)\ge0$ y típicamente $\Phi(D_0)=0$ (estado inicial).
 
-## **4. Probabilidad de contratar al candidato $i$ y valor esperado de contrataciones**
+**Costo amortizado de la operación $i$:**
 
-### **Enunciado**
-¿Cual es la probabilidad de que el i-esimo candidato o candidata sea contratad@? ¿Cual resulta ser, entonces, el valor esperado de la cantidad de contrataciones?
+   $$
+     \hat{c}_i \;=\; c_i \;+\;\bigl[\Phi(D_i)-\Phi(D_{i-1})\bigr].
+   $$
 
+**Desglose:**
 
-Si suponemos que hay $n$ candidatos y que el orden de llegada es una permutacion aleatoria uniforme. Y luego definimos el evento:
+   * $c_i$: gastas “realmente” esta cantidad.
+   * $\Phi(D_i)-\Phi(D_{i-1})$:
 
-$$
-C_i = \{\text{el candidato \(i\) es contratado}\}.
-$$
+     * Si sube el potencial ($+$), “guardas” crédito.
+     * Si baja ($-$), usas crédito guardado.
 
-* **Probabilidad de contratar al candidato $i$:**
-  El candidato $i$ sera contratado si y solo si su calidad es la mayor entre los primeros $i$ entrevistados. Dado el supuesto de aleatoriedad, todos los $\,i$ candidatos tienen la misma probabilidad de ser el mejor de ese subconjunto, asi que
+**Costo amortizado total de las $n$ operaciones:**
+
+   $$
+     \sum_{i=1}^n \hat{c}_i
+     = \sum_{i=1}^n \bigl(c_i + \Phi(D_i)-\Phi(D_{i-1})\bigr)
+     = \sum_{i=1}^n c_i \;+\;\Phi(D_n)\;-\;\Phi(D_0).
+   $$
+
+   Si $\Phi(D_0)=0$,
+
+   $$
+     \boxed{\sum_{i=1}^n \hat{c}_i 
+     = \sum_{i=1}^n c_i \;+\;\Phi(D_n).}
+   $$
+
+---
+
+### Fórmulas finales
+
+* **Costo amortizado por operación (agregado):**
 
   $$
-  \Pr[C_i]
-  \;=\;
-  \frac{1}{i}.
+    \hat{c} = \frac{1}{n}\sum_{i=1}^{n} c_i.
   $$
 
-* **Numero esperado de contrataciones:**
-  Sea $X$ el numero total de contrataciones. Podemos escribir
+* **Costo amortizado total (agregado):**
 
   $$
-  X \;=\;\sum_{i=1}^{n} [C_i],
+    n\cdot \hat{c} = \sum_{i=1}^{n} c_i.
   $$
 
-  donde $[C_i]$ es la variable indicadora de que el candidato $i$ fue contratado. Por linealidad de la esperanza,
+* **Costo amortizado de la operación $i$ (potencial):**
 
   $$
-  \mathbb{E}[X]
-  \;=\;
-  \sum_{i=1}^{n} \mathbb{E}[[C_i]]
-  \;=\;
-  \sum_{i=1}^{n} \Pr[C_i]
-  \;=\;
-  \sum_{i=1}^{n} \frac{1}{i}
-  \;=\;
-  H_n
+    \hat{c}_i = c_i + \Phi(D_i)-\Phi(D_{i-1}).
   $$
 
-  siendo $H_n$ el $n$-esimo numero armonico. En particular,
+* **Costo amortizado total (potencial):**
 
   $$
-  H_n \approx \ln n + \gamma,
+    \sum_{i=1}^n \hat{c}_i 
+    = \sum_{i=1}^n c_i + \Phi(D_n) - \Phi(D_0).
   $$
 
-  donde $\gamma$ es la constante de Euler–Mascheroni.
 
 
+# 10. ¿Qué escenario problemático podría enfrentar nuestra fórmula para el potencial bi? ¿Qué sí podemos asegurar acerca de bi en relación con bi−1 −ti +1 tomando en cuenta este escenario? ¿Cómo ajustamos la fórmula de potencial para tomar en cuenta el escenario problemático?
 
-## **5. Manifestacion de la aleatorizacion y su efecto en el tiempo de ejecucion**
+### Escenario problemático
 
-### **Enunciado**
-Supongamos que la agencia de reclutamiento toma especiales precauciones contra posibles fraudes. Para evitar que l@s candidat@s se pongan de acuerdo y saboteen el procedimiento de entrevista para favorecer a
-alguien, ¿como se manifestaria la aleatorizacion planteada arriba en el algoritmo del hiring problem? ¿Que efecto tendria esto sobre el conteo de operaciones? ¿Que es importante tomar en cuenta acerca de la aleatorizacion sobre
-el tiempo de ejecucion? ¿Como se manifestaria la aleatorizacion planteada en el algoritmo del hiring problem? ¿Que efecto tendria esto sobre el conteo de operaciones? ¿Que es importante tomar en cuenta acerca de la aleatorizacion sobre el tiempo de
-ejecucion?
-
-
-
-* **¿Como se introduce la aleatorizacion?**
-  Antes de empezar las entrevistas, barajamos la lista de candidatos con un algoritmo de *shuffle* uniforme. Esto fuerza que el orden de llegada sea una permutacion aleatoria, impidiendo manipulaciones o acuerdos previos.
-
-* **Impacto en el conteo de operaciones:**
-
-  1. **Barajado inicial:**
-     El shuffle de Fisher–Yates hace $(n-1)$ intercambios, es decir, $\Theta(n)$ operaciones.
-  2. **Algoritmo de contratacion:**
-     Recorre los $n$ candidatos comprobando si cada uno es mejor que el mejor visto hasta ahora; esto son $\Theta(n)$ comparaciones.
-
-  Por tanto, el costo total es
+**Caso wrap‑around**: cuando $b_{i}=0$, la operación de incremento ha restablecido todos los $k$ bits a 0 (es decir, $t_i = k$ y $b_{i-1}=k$).
+En ese momento, no se cumple la igualdad
 
   $$
-  T(n)
-  \;=\;
-  \underbrace{\Theta(n)}_{\text{shuffle}}
-  \;+\;
-  \underbrace{\Theta(n)}_{\text{entrevistas}}
-  \;=\;
-  \Theta(n).
+    b_i \;=\; b_{i-1} \;-\; t_i \;+\; 1
   $$
 
-* **¿Que considerar sobre el tiempo de ejecucion al aleatorizar?**
+  porque el contador vuelve a cero en lugar de quedar en 1.
 
-  * El tiempo deja de ser determinista y pasa a ser una variable aleatoria, pero mantenemos garantizado que siempre sea $\Theta(n)$ en el peor caso y en el caso promedio.
-  * Analizamos el tiempo esperado, $\mathbb{E}[T(n)] = O(n)$.
-  * Al ser un algoritmo Las Vegas, debemos asegurarnos de que la variabilidad del tiempo sea aceptable para nuestro entorno operativo.
+---
 
-
-
-
-
-## **Problema 6**
-
-### Enunciado:
-
-Provea una cota inferior para el tiempo de ejecucion de Permute-By-Sorting. ¿Que instrucciones podrian tener impacto significativo sobre el tiempo de ejecucion?
-
-Primero, analicemos el algoritmo Permute-By-Sorting:
-
-- $$n = A.length$$ - Obtiene la longitud del arreglo A
-- let P[1...n] be a new array - Crea un nuevo arreglo P de longitud n
-- for i = 1 to n - Itera sobre cada elemento
-- $$P[i] = RANDOM(1, n^3)$$ - Asigna a cada posicion un numero aleatorio entre 1 y $$n^3$$
-- $$sort A, using P as sort keys$$ - Ordena A usando P como claves de ordenamiento
-
-
-Para establecer una cota inferior, debemos identificar las operaciones que inevitablemente deben realizarse sin importar la implementacion:
-
-- Generacion de claves aleatorias: El bucle que asigna valores aleatorios a P requiere $\Omega(n)$ operaciones, ya que debe recorrer todo el arreglo P.
-- Ordenamiento: La operacion de ordenamiento tiene una cota inferior conocida de $\Omega(n log n)$ comparaciones para cualquier algoritmo de      ordenamiento basado en comparaciones. Aunque solo estamos ordenando las referencias de A segun P, necesitamos hacer estas comparaciones.
-
-Por lo tanto, la cota inferior para el tiempo de ejecucion de Permute-By-Sorting es $\Omega(n log n).$
-Instrucciones con impacto significativo
-Las instrucciones que tienen un impacto significativo en el tiempo de ejecucion son:
-
-- Generacion de numeros aleatorios: La funcion $$RANDOM(1, n^3)$$ puede tener diferentes implementaciones y costos dependiendo del generador de numeros aleatorios utilizado.
-- Algoritmo de ordenamiento seleccionado: El algoritmo de ordenamiento usado para ordenar A segun P tiene un gran impacto. Diferentes algoritmos de ordenamiento tienen diferentes constantes ocultas y comportamientos en casos particulares.
-- Rango de los numeros aleatorios: El algoritmo usa $$n^3$$ como limite superior para generar numeros aleatorios. Este rango grande es necesario para minimizar colisiones, pero trabajar con numeros grandes puede aumentar el costo computacional de las comparaciones.
-
-Como indica la pista, el ciclo principal y el ordenamiento dictan el tiempo de ejecucion, siendo el ordenamiento el factor dominante con su cota inferior de $$\Omega(n \log n)$$.
-
-
-## **Problema 7**
-
-Sabemos que un corte es una particion de los vertices en dos conjuntos no vacios (A y B) y que el tamaño del corte es el numero de aristas que conectan vertices en A con vertices en B. 
-
-Pensemos en un vertice v con grado minimo $$\delta(G)$$ (es decir, tiene exactamente $$\delta(G)$$ aristas conectadas a el):
-
-Si colocamos este vertice v solo en un conjunto A, y todos los demas vertices en B
-Todas las aristas conectadas a v cruzaran el corte
-Por lo tanto, este corte tendra un tamaño de $$\delta(G)$$
-
-Si intentamos hacer un corte mas pequeño, debemos colocar al menos a uno de los vecinos de v en el mismo conjunto que v. Pero esto solo puede aumentar o mantener igual el tamaño del corte, considerando la estructura completa del grafo.
-Por lo tanto, el tamaño del corte minimo k no puede ser menor que el grado minimo del grafo $$\delta(G)$$, es decir: $$k >= \delta(G)$$.
-
-
-### ¿Cual seria la cantidad minima de aristas que debe tener el grafo?
-
-
-Si un grafo tiene n vertices, y cada vertice tiene al menos un grado minimo $$\delta(G)$$, entonces:
-
-La suma total de grados seria al menos $$n·\delta(G)$$
-Como cada arista contribuye 2 al total de grados (uno por cada extremo)
-El numero minimo de aristas seria $$n·\delta(G)/2$$
-
-Por lo tanto, la cantidad minima de aristas que debe tener el grafo es $$n·\delta(G)/2$$.
-
-
-### ¿Como se llega a la probabilidad 2/n de contraer una arista del corte?
-
-
-En el algoritmo de Karger:
-
-Comenzamos con n vertices
-En cada paso, seleccionamos una arista aleatoriamente y la contraemos
-Continuamos hasta que quedan solo 2 vertices
-
-La probabilidad de que una arista especifica del corte minimo sea contraida en la primera iteracion es:
-
-Total de aristas en el corte minimo: k
-Total de aristas en el grafo: al menos $$n·\delta(G)/2$$, pero generalmente representado como m
-Probabilidad de seleccionar una arista del corte: $$k/m$$
-
-Para el caso especifico donde el grafo es minimamente conectado (con grado minimo):
-
-Cada vertice tiene al menos k aristas (ya que $$k >= \delta(G)$$)
-El total de aristas es al menos $$n·k/2$$
-La probabilidad de elegir una arista del corte seria como maximo $$k/(n·k/2) = 2/n$$
-
-Por lo tanto, la probabilidad de contraer una arista del corte minimo en una iteracion es a lo sumo $$2/n$$, lo que explica por que el algoritmo de Karger tiene una baja probabilidad de exito en una sola ejecucion cuando n es grande, y por que necesitamos ejecutarlo multiples veces
-
-## **Problema 8**
-
-El resultado mencionado muestra que la probabilidad global de obtener un corte minimo en una sola ejecucion del algoritmo de Karger es $$\Omega(n^-2) o aproximadamente 2/(n(n-1))$$.
-
-Significado para grafos grandes $$(n >> 1)$$:
-
-Probabilidad muy baja de exito: Cuando n es muy grande, la probabilidad de encontrar un corte minimo en una sola ejecucion se vuelve extremadamente pequeña. Por ejemplo:
-
-Con n = 100 vertices, la probabilidad es aproximadamente 0.0002 (0.02%)
-Con n = 1000 vertices, la probabilidad cae a 0.000002 (0.0002%)
-
-
-Ineficiencia con una sola ejecucion: Este resultado significa que confiar en una sola ejecucion del algoritmo es practicamente inutil para grafos grandes, ya que casi con certeza no encontrariamos el corte minimo.
-Degradacion cuadratica: La probabilidad disminuye de forma cuadratica $$(n^-2)$$ con respecto al numero de vertices, lo que implica una degradacion rapida del rendimiento a medida que el grafo crece.
-
-Precauciones necesarias:
-La principal precaucion que este resultado sugiere es ejecutar el algoritmo multiples veces:
-
-Ejecuciones independientes: Debemos ejecutar el algoritmo de Karger multiples veces de forma independiente y quedarnos con el mejor resultado (el corte mas pequeño) encontrado.
-Numero de repeticiones: Para garantizar una alta probabilidad de exito (por ejemplo, $$>= 1-\delta$$ para algun $$\delta$$ pequeño), necesitamos ejecutar el algoritmo $$O(n^2 \log n)$$ veces.
-
-Esto se deriva de la formula: $$(1 - 1/n^2)^r <= \delta$$ , donde r es el numero de repeticiones
-
-
-Uso de variantes mejoradas: Se pueden utilizar variantes del algoritmo como Karger-Stein (tambien conocido como "Contraccion Recursiva"), que mejora la probabilidad de exito a $$\Omega(1/\log n)$$, requiriendo significativamente menos repeticiones.
-Almacenamiento de estados intermedios: Una precaucion adicional es guardar estados intermedios del proceso de contraccion para poder explorar diferentes caminos de contraccion, especialmente en las etapas finales del algoritmo donde las decisiones tienen mayor impacto.
-
-
-
-## **9. Reforzamiento de la aleatoriedad en QuickSort**
-
-### 1. Reforzar una distribucion aleatoria uniforme sobre el input
-
-- Se puede reordenar aleatoriamente (**shuffle**) los elementos del arreglo de entrada antes de ejecutar el algoritmo.
-- Esto asegura que todas las permutaciones del arreglo tengan la misma probabilidad de aparecer, simulando aleatoriedad en la entrada.
-
-### 2. Eleccion de pivote
-
-- Si ya reordenamos el input de manera aleatoria, **no es necesario** elegir el pivote de manera aleatoria en cada recursion.
-- Podemos simplemente elegir el primer o ultimo elemento como pivote para cada paso, ya que la aleatorizacion de la entrada nos garantiza un comportamiento generalmente razonable.
-
-### 3. Aleatorizar el QuickSort sin forzar la aleatoriedad del input
-
-- Podemos elegir un pivote de manera aleatoria en cada llamada recursiva, seleccionando un indice aleatorio del subarreglo actual.
-- Esto convierte el algoritmo en un **QuickSort aleatorizado**, asegurando buena eficiencia promedio incluso con un input no aleatorio.
-
-
-
-## **10. Variables aleatorias indicadoras en QuickSort**
-
-### Definicion de las variables indicadoras
-
-Para $1 \leq i < j \leq n$, se define la variable aleatoria indicadora:
+Aunque la igualdad falle, sí es cierto que en todos los casos
 
 $$
-X_{ij} = 
-\begin{cases} 
-1 & \text{si los elementos } y_i \text{ y } y_j \text{ son comparados durante QuickSort} \\ 
-0 & \text{en caso contrario}
-\end{cases}
+  \boxed{b_i \;\le\; b_{i-1} \;-\; t_i \;+\; 1.}
 $$
 
-### Formula para X
+* Cuando no hay wrap‑around ($b_i>0$), de hecho se cumple igualdad.
+* Cuando hay wrap‑around ($b_i=0$), entonces
 
-$X$ es el numero total de comparaciones realizadas por el algoritmo:
+  $$
+    b_{i-1}=k,\quad t_i=k
+    \quad\Longrightarrow\quad
+    b_{i-1}-t_i+1 = 1
+    \quad\Longrightarrow\quad
+    0 = b_i \,\le\, 1.
+  $$
 
-$$
-X = \sum_{i=1}^{n-1} \sum_{j=i+1}^{n} X_{ij}
-$$
+---
 
-Esta doble suma recorre todas las parejas ordenadas $(i,j)$ tal que $i < j$, contando una unidad si esa pareja se compara.
+### Ajuste a la diferencia de potencial
 
-### Explicacion
-
-- En QuickSort, dos elementos se comparan **solamente** si uno de ellos se elige como pivote en la sublista que los contiene a ambos.
-- La cantidad esperada de comparaciones es:
-
-$$
-E[X] = \sum_{i=1}^{n-1} \sum_{j=i+1}^{n} E[X_{ij}]
-$$
-
-Donde $E[X_{ij}]$ es la probabilidad de que $y_i$ y $y_j$ se comparen.  
-Esta probabilidad es igual a $\frac{2}{j-i+1}$, lo cual se deduce considerando que:
-> Para que se comparen, ningun elemento entre $y_i$ y $y_j$ debe ser elegido como pivote antes que ellos.
-
-
-
-
-
-## **11. ¿Por que la eleccion de un pivote fuera del intervalo \[yi, yj] no influye en la probabilidad de que estos elementos sean comparados? ¿Cuantos elementos hay en el intervalo \[yi, yj]?**
-
-**Respuesta:**
-
-La eleccion de un pivote **fuera del intervalo \[yi, yj]** (es decir, menor que yi o mayor que yj) no afecta la posibilidad de que **yi y yj se comparen**, porque ambos seguiran en la misma sublista despues de esa particion. Solo se separaran cuando el pivote elegido este dentro del intervalo (es decir, que divida a yi y yj).
-
-Dado que Quicksort es recursivo, solo se realiza la comparacion **si ambos permanecen en la misma sublista hasta que uno de ellos sea elegido como pivote**. Asi, el evento de comparacion depende exclusivamente de que **ningun elemento del intervalo (yi, ..., yj)** sea elegido como pivote **antes** que yi o yj.
-
-El numero de elementos en el intervalo \[yi, yj] es:
+Partíamos de
 
 $$
-j - i + 1
+  \Delta\Phi_i
+  = \Phi(D_i) - \Phi(D_{i-1})
+  = b_i - b_{i-1}.
 $$
 
-Por lo tanto, la **probabilidad de que yi y yj sean comparados** es:
+Usando $b_i \le b_{i-1}-t_i+1$ obtenemos
 
 $$
-E[X_{ij}] = \frac{2}{j - i + 1}
+  \Delta\Phi_i
+  \;\le\;
+  (b_{i-1} - t_i + 1) - b_{i-1}
+  \;=\; 1 \;-\; t_i.
 $$
 
-Esta probabilidad se deriva del hecho de que solo yi o yj deben ser seleccionados como pivote antes que cualquier otro elemento entre ellos.
+---
 
-## **12. ¿Sera igual la cota del tiempo de ejecucion para la version no aleatorizada? ¿Por que?**
+### Nuevo cálculo del costo amortizado
 
-**Respuesta:**
-
-**No, no sera igual en todos los casos.**
-
-En la version no aleatorizada, si siempre se elige un pivote en una posicion fija (como el primer o ultimo elemento), es posible construir entradas especificas que **siempre generen el peor caso**: sublistas altamente desbalanceadas. Esto lleva a un tiempo de ejecucion de:
+El costo real de la operación $i$ es
 
 $$
-O(n^2)
+  c_i \;\le\; t_i + 1
 $$
 
-En cambio, en la version aleatorizada o con analisis probabilistico (asumiendo permutacion aleatoria del input), se garantiza que en promedio el pivote estara cerca del centro del subarreglo, y por tanto, se logra un rendimiento de:
+(porque se resetean $t_i$ bits y se pone a 1 un bit).
+Por tanto, el costo amortizado queda:
 
 $$
-E[X] = O(n \log n)
+  \begin{aligned}
+    a_i 
+    &= c_i + \Delta\Phi_i 
+    \;\le\; (t_i + 1) + (1 - t_i) \\
+    &= 2.
+  \end{aligned}
 $$
 
-Ademas, la aleatorizacion tiene la ventaja de **proteger al algoritmo contra entradas maliciosamente diseñadas** para forzar el peor caso, algo que no es posible en la version determinista.
+Y de aquí se concluye que, para cualquier secuencia de $n$ incrementos,
 
-## **13. ¿Que impacto tendra sobre el tiempo de ejecucion el revolver el input antes de proceder con el analisis probabilistico? Investigue sobre el tiempo de ejecucion de los generadores de numeros pseudo-aleatorios.**
+$$
+  \sum_{i=1}^n a_i = O(n)
+  \quad\Longrightarrow\quad
+  \sum_{i=1}^n c_i = O(n).
+$$
 
-**Respuesta:**
 
-Revolver el input (es decir, aleatorizarlo antes de aplicar Quicksort) transforma el analisis determinista en uno probabilistico. El impacto clave es que **reduce el riesgo de caer en el peor caso**, lo que estabiliza el rendimiento del algoritmo.
+# 11. Que cambio a las propiedades de la pila provocan las operaciones push, pop y multipop? Proponga una funcion de potencial para este problema. Luego provea el costo amortizado para la operacion push usando la funcion de potencial propuesta.
 
-El costo adicional por aleatorizar es generalmente **lineal**, $O(n)$, usando algoritmos como **Randomize-In-Place**, que tiene tiempo esperado eficiente y no requiere ordenamiento. Ademas, revolver el input es equivalente (en distribucion) a seleccionar pivotes aleatorios, por lo que se conserva el analisis probabilistico.
+Para esto vamos a ver que push aumenta el numero de elementos en la pila en 1, pop los disminuye en 1 y multipop hasta k.
 
-Sobre los **[generadores de numeros pseudoaleatorios](https://keepcoding.io/blog/generador-de-numeros-pseudoaleatorios/) (PRNG)**:
 
-* Son algoritmos diseñados para producir secuencias de numeros que **simulan ser aleatorios**, pero que son generados de manera determinista a partir de una semilla inicial.
-* Los mas comunes, como **rand()** o **random()**, suelen estar basados en **metodos de congruencia lineal**, que permiten generar rapidamente un nuevo numero pseudoaleatorio usando operaciones simples (suma, multiplicacion y modulo).
-* Debido a su simplicidad, la generacion de cada numero pseudoaleatorio requiere solo unas pocas instrucciones de maquina, lo cual significa que operan en **tiempo constante $O(1)$** o a lo sumo **logaritmico** en algunos casos menos comunes.
-* Por tanto, **el costo de generar estos numeros es muy bajo** comparado con el resto del algoritmo Quicksort, cuyo tiempo total de ejecucion esperado es $O(n \log n)$. Incluso si se generan $n$ numeros aleatorios, el costo agregado sigue siendo **lineal**, es decir, $O(n)$.
+Para la funcion de potencial proponemos la siguiente
 
-**Conclusion:** Revolver el input cuesta poco, pero **mejora significativamente** el comportamiento esperado del algoritmo, evitando el peor caso y garantizando un rendimiento estable.
+$$\Phi(D) = c*|S|$$
+
+Donde |S| es el numero de elementos de nuestra pila que es S. 
+
+Para calcular push usamos el metodo del metodo del potencial. 
+
+$$\hat{c}_i = c_i + \Phi_i - \Phi_{i-1}$$
+
+Para la operacion push sabemos que es lo siguiente
+
+- $\hat{c}_i$ = 1 (costo amortizado de la operacion i que es siempre constante)
+
+- $\Phi_{i-1} = |S|$   (potencial antes del push que es la cantidad que tenemos en nuestra pila ya que no hemos modificado nada)
+
+- $\Phi_{i} = |S|+1$ (potencial despues del push que nuestro pila aumenta 1 en tamaño)
+
+Al final tendriamos que 
+
+$$\hat{c}_i = c_i + \Phi_i - \Phi_{i-1}$$
+
+$$\hat{c}_i = 1 + (|S|+1) - (|S|)$$
+
+$$\hat{c}_i = 1 + |S| + 1 - |S|$$
+
+$$\hat{c}_i = 1 + 1$$
+
+$$\hat{c}_i = 2$$
+
+Como vemos el costo es de 2 en operacion push, lo que significa que es constante ose push es 
+
+$$O(1)$$
+
+
+# 12 Análisis Amortizado de Operaciones de Pila
+## Función Potencial
+- **Definición:**  
+  $\Phi(D_i) = \text{número de elementos en la pila}$.  
+- **Pila vacía inicial:**  
+  $\Phi(D_0) = 0$.  
+- **Propiedad clave:**  
+  $\Phi(D_i) \geq 0$ para toda $i$ (el tamaño de la pila nunca es negativo).
+---
+## Cálculo de Costos Amortizados
+### 1. Operación POP
+- **Costo real ($c_i$):**  
+  $1$ (eliminar 1 elemento).  
+- **Cambio en el potencial ($\Delta\Phi$):**  
+  $\Phi(D_i) - \Phi(D_{i-1}) = (\text{tamaño}(D_{i-1}) - 1) - \text{tamaño}(D_{i-1}) = -1.$
+  
+- **Costo amortizado ($c'_i$):**  
+  $c'_i = c_i + \Delta\Phi = 1 + (-1) = 0.$
+  
+**Justificación:**  
+El costo real de POP se compensa con la disminución del potencial. El potencial acumulado por operaciones PUSH anteriores cubre este costo.
+---
+### 2. Operación MULTIPOP(k)
+- **Costo real ($c_i$):**  
+  $j = \min(k, \text{tamaño}(D_{i-1}))$ (eliminar $j$ elementos).  
+- **Cambio en el potencial ($\Delta\Phi$):**  
+  $\Phi(D_i) - \Phi(D_{i-1}) = (\text{tamaño}(D_{i-1}) - j) - \text{tamaño}(D_{i-1}) = -j.$
+  
+- **Costo amortizado ($c'_i$):**  
+  $c'_i = c_i + \Delta\Phi = j + (-j) = 0.$
+  
+**Justificación:**  
+Cada elemento eliminado reduce el potencial en 1, igualando el costo real. El potencial acumulado por PUSH absorbe el gasto.
+---
+## Análisis Asintótico de una Secuencia de $n$ Operaciones
+### Costos Amortizados por Operación
+| **Operación** | **Costo Real** | **Cambio de Potencial** | **Costo Amortizado** |
+|---------------|----------------|--------------------------|-----------------------|
+| PUSH          | 1              | $+1$                     | $2$                  |
+| POP           | 1              | $-1$                     | $0$                  |
+| MULTIPOP(k)   | $j \leq k$     | $-j$                     | $0$                  |
+### Costo Total Amortizado
+$T_{\text{amortizado}} = (\text{número de PUSH}) \times 2 + (\text{número de POP y MULTIPOP}) \times 0.$
+
+Dado que el número de operaciones PUSH no excede $n$:  
+$T_{\text{amortizado}} \leq 2n.$
+### Relación con el Costo Real
+$T_{\text{real}} = T_{\text{amortizado}} + \Phi(D_0) - \Phi(D_n).$
+
+Como $\Phi(D_n) \geq 0$ y $\Phi(D_0) = 0$:  
+$T_{\text{real}} \leq T_{\text{amortizado}} \leq 2n.$
+---
+## Tasa de Crecimiento Asintótico
+- **Conclusión:**  
+  Cualquier secuencia de $n$ operaciones tiene un **costo total real de $O(n)$**.  
+- **Notación Asintótica:**  
+  $\boxed{O(n)}$
+  
+**Explicación Clave:**  
+- Los costos altos de MULTIPOP se "pagan" con el potencial acumulado por PUSH.  
+- Cada operación contribuye en promedio con $O(1)$ al costo total.  
+- La complejidad total crece linealmente con $n$.
