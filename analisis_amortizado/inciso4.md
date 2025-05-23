@@ -1,0 +1,3 @@
+# Inciso 4
+
+Suponga que al contador binario de los ejemplos se le agrega la operación *reset* que busca y convierte todos los $1$ en $0$, uno por uno a partir del bit menos significativo. Demuestre con el *accounting method* que cualquier secuencia de $n$ operaciones entre *increment* y *reset* toma un tiempo de ejecución de $O(n)$. Considere que el contador inicia desde $0$ y que cada revisión y cada modificación de un bit toma $\Theta(1)$. *Hint*: ¿hasta qué bit del número binario debe llegar *reset* en cualquier momento, y cómo podemos asegurar que todos los bits que *reset* modifique tengan crédito para pagar por su reseteo?
