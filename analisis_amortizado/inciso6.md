@@ -6,86 +6,147 @@ Un *min-heap* binario es un árbol binario completo (todos sus niveles están ll
 
 ## Función de Potencial Propuesta
 
-Para un min-heap binario completo con n elementos, definimos la función de potencial:
+Para un **min-heap binario completo** con $n$ elementos, definimos la función de potencial como:
 
-**Φ(H) = Σᵢ₌₁ⁿ log₂(altura del nodo i + 1)**
+$$
+\Phi(H) = \sum_{i=1}^{n} \log_2(\text{altura del nodo } i + 1)
+$$
 
-Donde la altura de un nodo es la distancia máxima desde ese nodo hasta una hoja.
+Donde la **altura de un nodo** es la distancia máxima desde ese nodo hasta una hoja.
 
 ### Propiedades de la Función de Potencial
 
-1. **Φ(H) ≥ 0**: Siempre positiva ya que log₂(altura + 1) ≥ 0 para cualquier nodo
-2. **Φ(∅) = 0**: Un heap vacío tiene potencial cero
-3. **Extrae información estructural**: El potencial refleja qué tan "desbalanceado" está el árbol
+1. $\Phi(H) \geq 0$: Siempre positiva, ya que $\log_2(\text{altura} + 1) \geq 0$ para cualquier nodo.
+2. $\Phi(\emptyset) = 0$: Un heap vacío tiene potencial cero.
+3. Extrae información estructural: El potencial refleja qué tan "desbalanceado" está el árbol.
+
+---
 
 ## Análisis de las Operaciones
 
 ### Operación INSERT
 
-**Costo real**: O(log₂ n) - en el peor caso burbujea hasta la raíz
+**Costo real:**
 
-**Cambio de potencial**:
-- Se añade un nuevo nodo como hoja (altura 0): +log₂(1) = 0
-- Los nodos en el camino desde la nueva hoja hasta la raíz pueden cambiar su contribución al potencial
-- En el peor caso, el cambio total es O(log₂ n)
+$$
+C_r(\text{insert}) = \mathcal{O}(\log_2 n)
+$$
 
-**Costo amortizado**:
-Cₐ(insert) = Cᵣ(insert) + ΔΦ = O(log₂ n) + O(log₂ n) = O(log₂ n)
+**Cambio de potencial:**
+
+- Se añade un nuevo nodo como hoja (altura 0): $\log_2(1) = 0$
+- Los nodos en el camino a la raíz pueden cambiar su contribución
+
+$$
+\Delta\Phi = \mathcal{O}(\log_2 n)
+$$
+
+**Costo amortizado:**
+
+$$
+C_a(\text{insert}) = C_r + \Delta\Phi = \mathcal{O}(\log_2 n)
+$$
+
+---
 
 ### Operación EXTRACT-MIN
 
-**Costo real**: O(log₂ n) - reemplaza raíz con última hoja y hace heapify-down
+**Costo real:**
 
-**Cambio de potencial**:
-- Se elimina la raíz (altura h = ⌊log₂ n⌋): -log₂(h + 1) = -log₂(⌊log₂ n⌋ + 1)
-- El último elemento se mueve a la raíz y burbujea hacia abajo
-- La reducción del potencial por eliminar la raíz es significativa: -Ω(log log n)
+$$
+C_r(\text{extract-min}) = \mathcal{O}(\log_2 n)
+$$
 
-**Costo amortizado**:
-Cₐ(extract-min) = Cᵣ(extract-min) + ΔΦ = O(log₂ n) - Ω(log log n) = O(1)
+**Cambio de potencial:**
+
+- Eliminación de la raíz (altura $h = \lfloor \log_2 n \rfloor$):
+
+$$
+\Delta\Phi = -\log_2(h + 1) = -\log_2(\lfloor \log_2 n \rfloor + 1) = -\Omega(\log \log n)
+$$
+
+**Costo amortizado:**
+
+$$
+C_a(\text{extract-min}) = \mathcal{O}(\log_2 n) - \Omega(\log \log n) = \mathcal{O}(1)
+$$
+
+---
 
 ## Demostración Formal
 
 ### Características del Árbol Binario Completo
 
-En un árbol binario completo de n nodos:
-- Altura total: h = ⌊log₂ n⌋
-- Número de nodos en el nivel i: 2ⁱ (para i = 0, 1, ..., h-1)
-- Altura de un nodo en el nivel i: h - i
+- Altura total: 
+
+$$
+h = \lfloor \log_2 n \rfloor
+$$
+
+- Número de nodos en el nivel $i$:
+
+$$
+2^i \quad \text{para } i = 0, 1, \dots, h-1
+$$
+
+- Altura de un nodo en el nivel $i$:
+
+$$
+h - i
+$$
+
+---
 
 ### Cálculo del Potencial Total
 
-Φ(H) = Σᵢ₌₀ʰ⁻¹ 2ⁱ · log₂(h - i + 1)
+$$
+\Phi(H) = \sum_{i=0}^{h-1} 2^i \cdot \log_2(h - i + 1)
+$$
 
-### Análisis del Extract-Min
+---
 
-Cuando extraemos el mínimo:
+## Análisis del Extract-Min
 
-1. **Eliminación de la raíz**: 
-   - Reducción: -log₂(h + 1) = -log₂(⌊log₂ n⌋ + 1)
-   - Esta reducción es Ω(log log n)
+1. **Eliminación de la raíz**:
 
-2. **Reorganización**:
-   - El costo de heapify-down es O(log₂ n)
-   - Los cambios locales en el potencial son menores
+$$
+\Delta\Phi = -\log_2(h + 1) = -\Omega(\log \log n)
+$$
 
-3. **Balance final**:
-   - Cₐ = O(log₂ n) - Ω(log log n) = O(1)
+2. **Reorganización:**
+
+$$
+C_r = \mathcal{O}(\log_2 n)
+$$
+
+3. **Costo amortizado:**
+
+$$
+C_a = \mathcal{O}(\log_2 n) - \Omega(\log \log n) = \mathcal{O}(1)
+$$
+
+---
 
 ## Validación de la Función de Potencial
 
-La función propuesta funciona porque:
+- Captura la estructura: nodos más altos contribuyen más al potencial.
+- `extract-min` libera suficiente potencial al eliminar la raíz.
+- `insert` añade potencial gradualmente.
+- Se mantiene la correlación entre potencial y "costo estructural" del heap.
 
-1. **Captura la estructura**: Nodos más altos contribuyen más al potencial
-2. **Extract-min libera potencial significativo**: Al eliminar la raíz (nodo de mayor altura)
-3. **Insert añade potencial gradualmente**: Nuevas hojas tienen contribución mínima
-4. **Mantiene invariantes**: El potencial siempre refleja el "costo estructural" del heap
+---
 
 ## Conclusión
 
-La función de potencial Φ(H) = Σᵢ₌₁ⁿ log₂(altura del nodo i + 1) demuestra que:
+La función de potencial:
 
-- **Insert**: Costo amortizado O(log₂ n)
-- **Extract-min**: Costo amortizado O(1)
+$$
+\Phi(H) = \sum_{i=1}^{n} \log_2(\text{altura del nodo } i + 1)
+$$
 
-Esto se logra porque extract-min libera suficiente potencial (al eliminar el nodo de mayor altura) para compensar su costo real de O(log₂ n).
+permite demostrar que:
+
+- **INSERT**: $C_a = \mathcal{O}(\log_2 n)$
+- **EXTRACT-MIN**: $C_a = \mathcal{O}(1)$
+
+Esto se logra porque `extract-min` libera suficiente potencial acumulado (al eliminar la raíz del heap) para compensar su costo real de $\mathcal{O}(\log_2 n)$.
