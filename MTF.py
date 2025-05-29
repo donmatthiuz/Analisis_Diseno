@@ -88,10 +88,34 @@ move_to_front_imtf = MTF_Algoritms([0, 1, 2, 3, 4], [4,3,2,1,0,4,3,2,1,0,4,3,2,1
 move_to_front_imtf.forSecuence(algoritmo= "IMTF")
 costo_imtf_4 = move_to_front_imtf.costo
 
+
+# Problema 5:
+print("\nProblema 5:")
+
+print("MTF:")
+move_to_front = MTF_Algoritms([0, 1, 2, 3, 4], [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2])
+move_to_front.forSecuence(algoritmo= "MTF")
+costo_mtf_5 = move_to_front.costo
+
 print("\nIMTF:")
-move_to_front_imtf = MTF_Algoritms([1, 2, 3], [3,2,1,3,2])
+move_to_front_imtf = MTF_Algoritms([0, 1, 2, 3, 4], [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2])
 move_to_front_imtf.forSecuence(algoritmo= "IMTF")
-costo_imtf_4 = move_to_front_imtf.costo
+costo_imtf_5 = move_to_front_imtf.costo
+
+
+# Ejercicio 5 parte 2
+
+print("MTF:")
+move_to_front = MTF_Algoritms([0, 1, 2, 3, 4], [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3])
+move_to_front.forSecuence(algoritmo= "MTF")
+costo_mtf_5_2 = move_to_front.costo
+
+print("\nIMTF:")
+move_to_front_imtf = MTF_Algoritms([0, 1, 2, 3, 4], [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3])
+move_to_front_imtf.forSecuence(algoritmo= "IMTF")
+costo_imtf_5_2 = move_to_front_imtf.costo
+
+
 
 print("\nResumen de resultados:")
 print(f"{'Problema':<10} | {'MTF':<10} | {'IMTF':<10}")
@@ -100,3 +124,5 @@ print(f"{'1':<10} | {costo_mtf_1:<10} | {costo_imtf_1:<10}")
 print(f"{'2':<10} | {costo_mtf_2:<10} | {costo_imtf_2:<10}")
 print(f"{'3':<10} | {costo_mtf_3:<10} | {costo_imtf_3:<10}")
 print(f"{'4':<10} | {costo_mtf_4:<10} | {costo_imtf_4:<10}")
+print(f"{'5.1':<10} | {costo_mtf_5:<10} | {costo_imtf_5:<10}")
+print(f"{'5.2':<10} | {costo_mtf_5_2:<10} | {costo_imtf_5_2:<10}")
