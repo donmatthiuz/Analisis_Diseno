@@ -1,5 +1,6 @@
 # Reporte: Algoritmo MTF (Move to Front) - Análisis de Costos de Acceso
 
+
 ## Enlaces del Proyecto
 
 **Repositorio GitHub**: [INSERTAR LINK AL REPOSITORIO]
@@ -312,7 +313,6 @@ move_to_front.forSecuence(algoritmo="IMTF")
 
 ### Anexo A: Código Fuente Completo
 
-**Repositorio GitHub**: [Ver enlaces al inicio del documento]
 
 #### Código Principal
 
@@ -357,18 +357,16 @@ move_to_front.forSecuence(algoritmo="MTF")
 move_to_front.forSecuence(algoritmo="IMTF")
 ```
 
-### Anexo B: Video Demostrativo
-**Enlace al video**: [Ver enlaces al inicio del documento]
 
-### Anexo C: Datos Detallados
+
+### Anexo B: Datos Detallados
 [Tablas completas con todos los pasos de ejecución para cada caso]
 
-### Anexo D: Gráficos y Visualizaciones
-[Gráficos de costos, evolución de listas y comparaciones de rendimiento]
+
 
 ---
 
-**Fecha de elaboración**: Mayo 2025  
-**Autor**: [Nombre del estudiante]  
-**Institución**: [Nombre de la institución]  
+**Fecha de elaboración**: 30 de Mayo 2025  
+**Autor**: Mathew Cordero Aquino 22982
+**Institución**: UVG
 **Curso**: Análisis de Algoritmos
