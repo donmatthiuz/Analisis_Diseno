@@ -3,9 +3,9 @@
 
 ## Enlaces del Proyecto
 
-**Repositorio GitHub**: [INSERTAR LINK AL REPOSITORIO]
+**Repositorio GitHub**: [Repositorio](https://github.com/donmatthiuz/Analisis_Diseno/tree/proyecto2)
 
-**Video Demostrativo**: [INSERTAR LINK AL VIDEO]
+**Video Demostrativo**: [Video](https://youtu.be/pJP6SySMKrs)
 
 ---
 
@@ -258,40 +258,146 @@ move_to_front.forSecuence(algoritmo="IMTF")
 ## Resultados y Análisis
 
 ### Caso 1: Secuencia Ordenada Repetitiva
-**Configuración inicial**: [0, 1, 2, 3, 4]
-**Secuencia**: 0, 1, 2, 3, 4, 0, 1, 2, 3, 4, 0, 1, 2, 3, 4, 0, 1, 2, 3, 4
+- **Configuración inicial**: [0, 1, 2, 3, 4]
+- **Configuracion Final**: [4, 3, 2, 1, 0]
+- **Secuencia**: 0, 1, 2, 3, 4, 0, 1, 2, 3, 4, 0, 1, 2, 3, 4, 0, 1, 2, 3, 4
+- **Resultados**
 
-[Los resultados específicos se completarán con la ejecución del programa]
+![alt text](image.png)
+
+- **Costo Total**: 90
+- **Analisis**: El costo total de 90 en el método MTF (Move-To-Front) se explica porque en este algoritmo, cada número accedido se mueve al frente de la lista, y el costo de acceder un número es su índice actual en la lista antes de moverlo.
+
+Por ende el calculo es 
+1 + 2 + 3 + 4 + 5 = 15      (primer ciclo)
+5 * 15 = 75                 (15 accesos más con costo 5)
+Total: 15 + 75 = **90**
 
 ### Caso 2: Secuencia Inversa y Mixta
-**Configuración inicial**: [0, 1, 2, 3, 4]
-**Secuencia**: 4, 3, 2, 1, 0, 1, 2, 3, 4, 3, 2, 1, 0, 1, 2, 3, 4
+- **Configuración inicial**: [0, 1, 2, 3, 4]
+- **Configuración final**: [4, 3, 2, 1, 0] 
+- **Secuencia**: 4, 3, 2, 1, 0, 1, 2, 3, 4, 3, 2, 1, 0, 1, 2, 3, 4
+- **Resultados**
 
-[Los resultados específicos se completarán con la ejecución del programa]
+![alt text](image-1.png)
+
+- **Costo Total**: 67
+- **Analisis**: El costo total de 67 en el método MTF (Move-To-Front) se explica porque en este algoritmo, cada número accedido se mueve al frente de la lista, y empieza desde el de mas atras hasta el de mas adelante. 
+
+Por ende el calculo es 
+1 + 2 + 3 + 4 + 5 + 2 + 3 + 4 + 5 + 3 + 3 + 3 + 5 + 2 + 3 + 4 + 5 = **67**
+
+
 
 ### Caso 3: Mejor Caso (20 solicitudes)
-**Secuencia óptima identificada**: [Por determinar]
-**Costo total mínimo**: [Por calcular]
+- **Secuencia óptima identificada**: [0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0, 0,0]
+- **Configuracion inicial**: [0, 1, 2, 3, 4]
+- **Configuración final**:  [0, 1, 2, 3, 4]
+- **Costo total mínimo**: 20
+- **Resultados**
+
+![alt text](image-2.png)
+
+- **Analisis**: 
+Como el número 0 está en la primera posición, el costo de cada acceso es 1.
+
+Total: 1 × 20 = 20
+
+Por ende el elemento accedido nunca cambia de lugar, siempre está en la posición 0, lo que asegura el menor costo posible.
+
+Debido a esto la secuencia sera de 0's 20 que sean el menor costo. 
+
+
+
 
 ### Caso 4: Peor Caso (20 solicitudes)
-**Secuencia de peor rendimiento**: [Por determinar]
-**Costo total máximo**: [Por calcular]
+- **Secuencia de peor rendimiento**: [4,3,2,1,0,4,3,2,1,0,4,3,2,1,0,4,3,2,1,0]
+- **Costo total máximo**: 100
+- **Configuracion inicial**: [0, 1, 2, 3, 4]
+- **Configuración final**:  [0, 1, 2, 3, 4]
+- **Resultados**
+
+![alt text](image-3.png)
+
+- **Analisis**: 
+
+En MTF, cada vez que se accede a un elemento, este se mueve al frente de la lista.
+
+Si justo después accedes a un elemento que estaba al final, ahora está más lejos, porque otros elementos ya han sido movidos al frente.
+
+Esta secuencia accede siempre del final al inicio, forzando cada vez a recorrer toda la lista.
+
+No hay repeticiones inmediatas que puedan beneficiarse del movimiento al frente.
+
+Por ende el calculo es :
+
+- 4 está en la posición 4 → costo 5
+
+- 3 está ahora al final → costo 5
+
+- 2 está ahora al final → costo 5
+
+- 1 está ahora al final → costo 5
+
+- 0 está ahora al final → costo 5
+
+Total por bloque: 5 + 5 + 5 + 5 + 5 = 25
+Número de bloques: 4
+→ Costo total: 25 × 4 = *100*
+
+
 
 ### Caso 5: Análisis de Repetición
-**Secuencia de 2s**: Costo total = [Por calcular]
-**Secuencia de 3s**: Costo total = [Por calcular]
-**Patrón identificado**: [Por analizar]
+- **Secuencia de 2s**:
+
+![alt text](image-4.png)
+
+**El costo es de 22**
+
+
+- **Secuencia de 3s**:
+
+![alt text](image-5.png)
+
+**El costo es de 23**
+
+
+- **Patrón identificado**:
+
+Se puede observar que cada vez que se posiciona en un numero diferente el costo aumenta, esto porque al moverlo al inicio de la lista ,ahora siempre estara al inicio. Por lo tanto el costo sera  k + posicion, donde k es el largo de la secuencia y posicion es la posicion del numero que se accede.
 
 ### Caso 6: Comparación MTF vs IMTF
-**Rendimiento IMTF en mejor caso**: [Por evaluar]
-**Rendimiento IMTF en peor caso**: [Por evaluar]
-**Mejora porcentual**: [Por calcular]
+
+- **Tabla comparacion de ambos Algoritmos**
+
+| Problema | MTF | IMTF |
+|----------|-----|------|
+| 1        | 90  | 68   |
+| 2        | 67  | 53   |
+| 3        | 20  | 20   |
+| 4        | 100 | 68   |
+| 5.1      | 22  | 22   |
+| 5.2      | 23  | 23   |
+
+
+- **Rendimiento IMTF en mejor caso**: 20
+
+![alt text](image-7.png)
+
+- **Rendimiento IMTF en peor caso**: 68
+
+![alt text](image-6.png)
+
+- **Mejora porcentual**: 68% en el peor caso.
+
+- **Analisis**
+
+En el mejor de los casos no hay mejor mayor asi que siempre sera n el largo de la secuencia. Pero para el pero de los casos seria 68 ya que hay veces que no hace calculos de todo el largo de la lista. Por eso mejor en rendimiento por ejemplo en  [1 2 3] con secuencia [2 2 2 2 2 ] en MTF es n+k-1 osea 5+2-1 = 6 pero en IMTF es  3+2+1+3+2=11. porque se usa next de cada 2 por el que se acceda. 
+
+Por ende en el peor caso será de 68 para el que se tomó en cuenta, debido a que el algoritmo IMTF con lookahead evita mover elementos innecesariamente cuando no se van a solicitar pronto, lo que reduce la cantidad de movimientos y por tanto el costo total comparado con MTF. Esto sucede porque IMTF anticipa las próximas solicitudes y solo mueve al frente los elementos que se usarán en el corto plazo, evitando así penalizaciones por mover elementos que no se necesitan inmediatamente. Por eso, aunque el costo sigue siendo alto, es menor que el caso peor de MTF que fue 100.
+
 
 ## Conclusiones
-
-### Hallazgos Principales
-[Las conclusiones se completarán después del análisis de resultados]
-
 ### Implicaciones Teóricas
 1. **Localidad temporal**: El algoritmo MTF es más efectivo cuando existe alta localidad temporal
 2. **Patrones repetitivos**: Secuencias con elementos repetidos muestran convergencia rápida a costo mínimo
@@ -360,13 +466,20 @@ move_to_front.forSecuence(algoritmo="IMTF")
 
 
 ### Anexo B: Datos Detallados
-[Tablas completas con todos los pasos de ejecución para cada caso]
 
-
+Aqui se puede encontrar la tabla para el resultado que se obtuvo por cada algoritmo
+| Problema | MTF | IMTF |
+|----------|-----|------|
+| 1        | 90  | 68   |
+| 2        | 67  | 53   |
+| 3        | 20  | 20   |
+| 4        | 100 | 68   |
+| 5.1      | 22  | 22   |
+| 5.2      | 23  | 23   |
 
 ---
 
-**Fecha de elaboración**: 30 de Mayo 2025  
-**Autor**: Mathew Cordero Aquino 22982
-**Institución**: UVG
-**Curso**: Análisis de Algoritmos
+- **Fecha de elaboración**: 30 de Mayo 2025  
+- **Autor**: Mathew Cordero Aquino 22982
+- **Institución**: UVG
+- **Curso**: Análisis de Algoritmos
